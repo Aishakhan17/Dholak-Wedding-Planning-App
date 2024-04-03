@@ -16,6 +16,7 @@ import Testimonials from "./pages/Testimonials/Testimonials";
 import Profile from "./pages/Profile/Profile";
 import BoardForm from "./components/BoardForm";
 import Board from "./pages/Board/Board";
+import AddMembers from "./components/AddMembers";
 
 
 function App() {
@@ -59,6 +60,11 @@ function App() {
                 />
                 <Route path="/board-form" element={<PrivateWrapper>
                     <BoardForm />
+                </PrivateWrapper> 
+                    }
+                />
+                <Route path="/add-members" element={<PrivateWrapper>
+                    <AddMembers />
                 </PrivateWrapper> 
                     }
                 />

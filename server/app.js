@@ -62,6 +62,7 @@ app.use(cors(
 app.use("/", require("./routes/index"))
 app.use("/auth", require("./routes/auth"))
 app.use("/boards", require("./routes/boards"))
+app.use("/users", require("./routes/users"))
 
 
 const PORT = process.env.PORT || 3000

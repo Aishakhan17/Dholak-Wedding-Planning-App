@@ -36,10 +36,11 @@ const YourBoard = () => {
         )
         if (userBoards.status === 200) {
             // console.log("userBoards", userBoards, typeof userBoards)
+            setIsLoading((current) => !current)
             return userBoards    
         }
     }
-    console.log("boards", boards, typeof boards, Object.keys(boards).length)
+    // console.log("boards", boards, typeof boards, Object.keys(boards).length)
     if (isLoading) {
         return (
             <Loading />

@@ -27,7 +27,7 @@ async function getUserBoards(data) {
     const owner = data.user.data.id
     // console.log("owner", owner, "data", data, typeof owner)
     let boards = await Board.find({owner: owner})
-    console.log("controler", boards)
+    // console.log("controler", boards)
     
     if (boards) {
         return boards
@@ -40,7 +40,7 @@ async function getUserBoards(data) {
 
 async function getBoardData(id) {
     const data = await Board.findById(id)
-    console.log("data", data)
+    // console.log("data", data)
     if (data) {
         return data
     }
