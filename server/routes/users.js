@@ -3,6 +3,16 @@ const router = express.Router()
 const User = require("../models/User")
 
 
+
+router.post("/user", async (req, res) => {
+    const id = req.body.id 
+    const user = await User.findById(id)
+    if (user) {
+        console.log(user)
+        return res.json({firstName: user.firstName, lastName: user.lastName, email: user.email, image: user.image})
+    }
+})
+
 router.post("/get-users", async (req, res) => {
     query = req.body.name
     let result = {}

@@ -1,20 +1,46 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useUpdate } from '../../utils/Context'
 import Navbar from "../../components/Navbar"
+import { useParams } from 'react-router-dom'
+import axios from 'axios'
+import noImg from "../../assets/noImg.png"
 
-const Profile = (id) => {
-    const {user} = useUpdate()    
-    console.log(user.data.firstName)
+const Profile = () => {
+    let [user, setUser] = useState([])    
+    // const _id = useParams()
+    const id = useParams().id
+    console.log(id)
+
+    useEffect(() => {
+        let result = fetchUserDetails()  
+        result.then((result) => setUser(result.data))
+    }, [])
+
+    async function fetchUserDetails() {
+        let userDetails = await axios.post(
+            `${process.env.REACT_APP_API_URL}/users/user`, {
+                id,
+            }
+        )
+        return userDetails
+    }
+    console.log(user)
     return (
         <div>
             <Navbar />
             <div className="mt-10 mx-auto grid grid-cols-[800px_minmax(1000px,_2fr)] gap-x-20 gap-y-10 w-screen">
                 <div className=" flex flex-col">
-                    <img
-                        className="h-30 w-30 rounded-full self-center justify-center" 
-                            src={`${user.data.image}`}
+                    {user.image
+                    ? <img
+                        className="h-10 w-10 rounded-full self-center justify-center" 
+                            src={`${user.image}`}
                     />
-                    <p className="mt-10 ml-10 text-center text-2xl font-bold leading-9 tracking-tight text-white self-center justify-center">{user.data.firstName} {user.data.lastName}
+                    : <img
+                        className="h-36 w-36 rounded-full self-center justify-center" 
+                            src={noImg}
+                    />   
+                    }
+                    <p className="mt-10 ml-10 text-center text-2xl font-bold leading-9 tracking-tight text-white self-center justify-center">{user.firstName} {user.lastName}
                     </p>
                 </div>
                 <div className="flex flex-col">

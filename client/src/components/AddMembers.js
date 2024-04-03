@@ -79,7 +79,7 @@ const AddMembers = () => {
                                                 ? <img className='h-5 w-5 mr-10' src={users[i].image}/>
                                                 : <img className='h-5 w-5 mr-10' src={noImg}/>
                                             }
-                                            <span><a>{users[i].firstName} {users[i].lastName}</a></span>
+                                            <span><a href={`/profile/${users[i].id}`}>{users[i].firstName} {users[i].lastName}</a></span>
                                         </div>
                                         {/* <hr /> */}
                                     </div>
