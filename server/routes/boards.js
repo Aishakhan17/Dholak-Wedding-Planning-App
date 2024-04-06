@@ -27,13 +27,12 @@ router.post("/create", upload.single("cover"), async (req, res, next) => {
     let newBoard = {
         title: req.body.title,
         description: req.body.description,
-        // cover: req.body.cover,
         cover: {
             data: fs.readFileSync(path.join(__dirname + "/../uploads/" + req.file.filename)),
             contentType: "image/png/jpg/jpeg"
         },
-        // cover: req.body.body.cover,
         owner: req.body.owner,
+        private: req.body.private
     }
     // console.log("newBoard", newBoard)
     const result = await boardFunctions.createBoard(newBoard)
@@ -57,6 +56,13 @@ router.post("/board", async (req, res) => {
     return res.json(boardData)
 })
 
+router.post("/get-public-boards", async (req, res) => {
+    const id = req.body.id
+    const publicBoardData = await boardFunctions.getPublicBoardData(id)
+    // console.log("publicBoardData", publicBoardData)
+    // console.log("board router", req.body.id, typeof req.body.id)
+    return res.json(publicBoardData)
+})
 
 
 module.exports = router

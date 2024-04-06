@@ -50,7 +50,7 @@ const BoardSideNav = ({cover, title, id, participants}) => {
                     <li>
                         <div className="user-view">
                             <div className="background place-items-center">
-                                <img src={"data:image/jpg;base64,"+cover} className='h-96 mx-auto pt-5'/>
+                                <img src={"data:image/jpg;base64,"+cover} className='h-80 mx-auto pt-10'/>
                             </div>
                         </div>
                     </li>

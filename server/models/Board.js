@@ -32,6 +32,10 @@ const BoardSchema = new mongoose.Schema({
     createdAt: {
         type: Date,
         default: Date.now()
+    },
+    private: {
+        type: Boolean, 
+        required: false
     }
 })
 

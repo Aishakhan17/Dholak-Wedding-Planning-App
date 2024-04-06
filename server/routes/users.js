@@ -9,7 +9,7 @@ router.post("/user", async (req, res) => {
     const user = await User.findById(id)
     if (user) {
         console.log(user)
-        return res.json({firstName: user.firstName, lastName: user.lastName, email: user.email, image: user.image})
+        return res.json({firstName: user.firstName, lastName: user.lastName, email: user.email, image: user.image, id: user._id})
     }
 })
 

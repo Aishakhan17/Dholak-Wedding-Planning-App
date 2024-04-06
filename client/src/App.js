@@ -35,7 +35,7 @@ function App() {
             <Routes>
                 <Route path="/" element ={<PublicWrapper>
                     <Landing />
-                </PublicWrapper> 
+                </PublicWrapper>
                     }
                 />
                 <Route path="/login" element ={<PublicWrapper>

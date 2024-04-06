@@ -49,8 +49,28 @@ async function getBoardData(id) {
     }
 }
 
+async function getPublicBoardData(id) {
+    var result = []
+    const data = await Board.find({private: false})
+    // console.log("data", data)
+    Object.keys(data).map((i) => {
+        // console.log(data[i]["owner"].toString(), typeof data[i]["owner"].toString(), id, typeof id)
+        _id = data[i]["owner"].toString() 
+        console.log(_id)
+        // const owner = await User.findById(_id)
+        // console.log("owner", owner)
+        data[i]["owner"] = owner
+        if (data[i]["owner"].toString() !== id) {
+            result.push(data[i])
+        }
+        // console.log("result", result)
+    })
+    return result
+}
+
 module.exports = {
     createBoard,
     getUserBoards,
-    getBoardData
+    getBoardData, 
+    getPublicBoardData
 }

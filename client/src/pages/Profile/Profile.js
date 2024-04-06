@@ -8,8 +8,9 @@ import noImg from "../../assets/noImg.png"
 const Profile = () => {
     let [user, setUser] = useState([])    
     // const _id = useParams()
+    const currentUser = useUpdate().user
     const id = useParams().id
-    console.log(id)
+    console.log("currentUser", currentUser)
 
     useEffect(() => {
         let result = fetchUserDetails()  
@@ -24,15 +25,15 @@ const Profile = () => {
         )
         return userDetails
     }
-    console.log(user)
+    // console.log(user)
     return (
         <div>
             <Navbar />
-            <div className="mt-10 mx-auto grid grid-cols-[800px_minmax(1000px,_2fr)] gap-x-20 gap-y-10 w-screen">
-                <div className=" flex flex-col">
+            <div className="mt-16 mx-auto grid grid-cols-[600px_minmax(1000px,_2fr)] gap-x-20 gap-y-10 w-screen">
+                <div className="bg-white bg-opacity-95 w-3/5 h-fit flex flex-col mx-auto p-10 rounded-md">
                     {user.image
                     ? <img
-                        className="h-10 w-10 rounded-full self-center justify-center" 
+                        className="h-36 w-36 rounded-full self-center justify-center" 
                             src={`${user.image}`}
                     />
                     : <img
@@ -40,7 +41,7 @@ const Profile = () => {
                             src={noImg}
                     />   
                     }
-                    <p className="mt-10 ml-10 text-center text-2xl font-bold leading-9 tracking-tight text-white self-center justify-center">{user.firstName} {user.lastName}
+                    <p className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-800 self-center justify-center">{user.firstName} {user.lastName}
                     </p>
                 </div>
                 <div className="flex flex-col">
