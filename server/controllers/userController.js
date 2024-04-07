@@ -44,13 +44,13 @@ async function manaulUserCheck(data) {
             if (match) {
                 return ({id:user._id, firstName: user.firstName, lastName: user.lastName, username: user.userName, image: user.image})
             }
-            // else {
-            //     return {error: "Incorrect Password"}
-            // }
+            else {
+                return {error: "Incorrect Password"}
+            }
         }
-        // else {
-        //     return {error: "User does not exist, please register to login"}
-        // }
+        else {
+            return {error: "User does not exist, please register to login"}
+        }
     } catch (error) {
         return {error: error}
     }

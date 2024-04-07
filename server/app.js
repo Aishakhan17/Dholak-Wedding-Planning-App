@@ -59,7 +59,7 @@ app.use(session({
 app.use(cors(
     {
         "Access-Control-Allow-Credentials": true, 
-        "Access-Control-Allow-Origin": ["https://dholak-wedding-planning-app-client-a7huqrecr.vercel.app/", "http://localhost:3000/"],
+        "Access-Control-Allow-Origin": ["https://dholak-wedding-planning-app-client-2i0kdo3wh.vercel.app", "http://localhost:3000"],
     }, 
 ))
 
