@@ -59,8 +59,8 @@ app.use(session({
 const corsOptions = {
     origin: ["https://dholak-wedding-planning-app-client-2i0kdo3wh.vercel.app", "https://dholak-wedding-planning-app-client.vercel.app", "http://localhost:3000"],
     methods: ["POST", "GET", "PATCH", "DELETE", "OPTIONS"],
-    preflightContine: true,
-    // allowedHeader: ["Content-Type, "]
+    headers: ["Content-Type"],
+    credentials: true,
 }
 
 app.use(cors(corsOptions))
