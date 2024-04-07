@@ -52,8 +52,7 @@ const Login = () => {
                 `${process.env.REACT_APP_API_URL}/auth/google`, {
                     code: codeResponse.code,
                     withCredentials: true,
-                }, 
-                {headers: {"Access-Control-Allow-Origin": '*'}},
+                },
                 {'X-Requested-With': 'XMLHttpRequest'});
             console.log("userVerified", userVerified)
             if (userVerified !== null) {
