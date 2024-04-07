@@ -56,14 +56,14 @@ app.use(session({
 
 
 //CORS middleware
-app.use(cors(
-    {
-        "Access-Control-Allow-Credentials": true, 
-        "Access-Control-Allow-Origin": "*"
-        // ["https://dholak-wedding-planning-app-client-2i0kdo3wh.vercel.app", "https://dholak-wedding-planning-app-client.vercel.app", "http://localhost:3000"]
-        ,
-    }, 
-))
+const corsOptions = {
+    origin: ["https://dholak-wedding-planning-app-client-2i0kdo3wh.vercel.app", "https://dholak-wedding-planning-app-client.vercel.app", "http://localhost:3000"],
+    methods: ["POST", "GET", "PATCH", "DELETE", "OPTIONS"],
+    preflightContine: true,
+    // allowedHeader: ["Content-Type, "]
+}
+
+app.use(cors(corsOptions))
 
 
 //Routes

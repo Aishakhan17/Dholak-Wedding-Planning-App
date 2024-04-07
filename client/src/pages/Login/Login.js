@@ -53,7 +53,13 @@ const Login = () => {
                     code: codeResponse.code,
                     withCredentials: true,
                 },
-                {'X-Requested-With': 'XMLHttpRequest'});
+                {crossdomain: true},
+                {headers: {
+                    "Access-Control-Allow-Origin": "*",
+                    "Access-Control-Allow-Credentials": true
+                }},
+                // {'X-Requested-With': 'XMLHttpRequest'}
+            );
             console.log("userVerified", userVerified)
             if (userVerified !== null) {
                 updateUser(userVerified)
