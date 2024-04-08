@@ -36,7 +36,6 @@ const YourBoard = () => {
             publicResult.then((publicResult) => {setOtherBoards(publicResult.data)}
         )
         }
-        // console.log("boards", boards)
         return () => {
             isCancelled = true
         }
@@ -47,7 +46,11 @@ const YourBoard = () => {
         const userBoards = await axios.post(
             `${process.env.REACT_APP_API_URL}/boards/get-boards`, {
                 user,
-            }, {'X-Requested-With': 'XMLHttpRequest'}
+            },
+            {crossdomain: true},
+            {headers: {
+                "Content-Type": "application/json"
+            }}
         )
         if (userBoards.status === 200) {
             // console.log("userBoards", userBoards, typeof userBoards)
@@ -67,17 +70,19 @@ const YourBoard = () => {
             return publicBoards
         } 
     }
-    // console.log("boards", boards, typeof boards, Object.keys(boards).length)
+
+    // console.log("boards", boards)
+    console.log("otherboards", otherBoards)
     if (isLoading) {
         return (
             <Loading />
         )
     }
+
     return (
         <div>
             <Navbar />
             <div className='mt-20'>
-                {/* <h4 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-white">Here are your boards {user.data.firstName}</h4> */}
                 <div className='flex flex-col'> 
                     <a className='self-center justify-center'>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="white" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="mt-10 mb-0 w-8 h-8 self-center justify-center hover:opacity-50">
@@ -96,12 +101,11 @@ const YourBoard = () => {
             <h4 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-white">Here are your boards, {user.data.firstName}</h4>
             
             <div className='mt-10 mb-10 grid 2xl:grid-cols-5 xl:grid-cols-4 lg:grid-cols-3 px-10 md:grid-cols-2 place-items-center'>
-                {/* <div className='self-center content-center justify-items-center'> */}
                 {Object.keys(boards).map((i,j) => {
                     let cover = Buffer.from(boards[i].cover.data.data, "binary").toString('base64')
                     return (
                         <div className='self-center justify-center'>
-                            <BoardTile key={j} cover={"data:image/jpg;base64,"+cover} title={boards[i]["title"]} owner={boards[i]["owner"]} createdAt={boards[i]["createdAt"]} id={boards[i]._id}/>
+                            <BoardTile key={j} cover={"data:image/jpg;base64,"+cover} title={boards[i]["title"]} ownerUserName={boards[i]["owner"].userName} ownerId={boards[i]["owner"]._id} createdAt={boards[i]["createdAt"]} boardId={boards[i]._id}/>
                         </div>
                         
                         )

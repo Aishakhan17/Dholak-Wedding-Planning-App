@@ -29,7 +29,12 @@ const Signup = () => {
             const userVerified = await axios.post(
                 `${process.env.REACT_APP_API_URL}/auth/google`, {
                     code: codeResponse.code,
-                }, {'X-Requested-With': 'XMLHttpRequest'});
+                }, 
+                {crossdomain: true},
+                {headers: {
+                    "Content-Type": "application/json"
+                }},
+            );
             console.log("userVerified", userVerified)
             if (userVerified !== null) {
                 updateUser(userVerified)
@@ -61,7 +66,11 @@ const Signup = () => {
         const signUpComplete = await axios.post(
             `${process.env.REACT_APP_API_URL}/auth/signup`, {
                 body: body,
-            }, {'X-Requested-With': 'XMLHttpRequest'},
+            }, 
+            {crossdomain: true},
+            {headers: {
+                "Content-Type": "application/json"
+            }},
         )
         console.log("signUpComplete", signUpComplete)
         if (("error" in signUpComplete.data)) {

@@ -25,7 +25,11 @@ const Login = () => {
         const manualUserVerified = await axios.post(
             `${process.env.REACT_APP_API_URL}/auth/login`, {
                 body: body,
-            }, {'X-Requested-With': 'XMLHttpRequest'}
+            }, 
+            {crossdomain: true},
+            {headers: {
+                "Content-Type": "application/json"
+            }},
         )
         console.log("manualUserVerified", manualUserVerified)
 

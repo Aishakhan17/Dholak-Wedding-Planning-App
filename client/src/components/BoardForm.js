@@ -19,8 +19,8 @@ const BoardForm = () => {
         let title = await event.target[0].value 
         let description = await event.target[1].value
         let cover = await event.target[2].files[0]
-        let owner = await user.data.id
-        console.log(title, description, cover, owner, privateBoard)
+        let owner = user.data.id
+        console.log(title, description, cover, "owner", owner, privateBoard)
         
         const myFormData = new FormData()
 
@@ -32,10 +32,10 @@ const BoardForm = () => {
 
         const boardStatus = await axios.post(
             `${process.env.REACT_APP_API_URL}/boards/create`, myFormData, {
-                headers: {
-                    "Content-Type": "multipart/form-data"
-                },
-                'X-Requested-With': 'XMLHttpRequest'
+                // headers: {
+                //     "Content-Type": "multipart/form-data"
+                // },
+                // 'X-Requested-With': 'XMLHttpRequest'
             },
         )
         console.log("boardStatus", boardStatus)

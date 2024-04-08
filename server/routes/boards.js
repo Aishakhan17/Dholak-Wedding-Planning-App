@@ -21,7 +21,7 @@ var upload = multer({ storage: storage })
 
 router.post("/create", upload.single("cover"), async (req, res, next) => {
     // const data = req.body
-    // console.log("req.body from boards", req.body)
+    // console.log("req.body from boards")
     // console.log("storage", storage)
 
     let newBoard = {
@@ -34,9 +34,9 @@ router.post("/create", upload.single("cover"), async (req, res, next) => {
         owner: req.body.owner,
         private: req.body.private
     }
-    // console.log("newBoard", newBoard)
+    console.log("newBoard", newBoard, newBoard.owner, typeof newBoard.owner)
     const result = await boardFunctions.createBoard(newBoard)
-    // console.log("result", result)
+    console.log("result", result)
     return res.json(result)
 })
 
