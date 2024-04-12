@@ -130,7 +130,7 @@ const BoardForm = () => {
                     <div>
                         <label 
                             htmlFor='status'
-                            className="block text-sm font-medium leading-6 text-white"
+                            className="block text-sm font-medium leading-6 text-gray-800"
                         >
                             Create Private Board?
                         </label>
