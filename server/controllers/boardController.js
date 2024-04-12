@@ -1,4 +1,3 @@
-const { connectStorageEmulator } = require("firebase/storage")
 const Board = require("../models/Board")
 const User = require("../models/User")
 const mongoose = require("mongoose")
