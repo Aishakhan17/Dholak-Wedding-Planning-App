@@ -119,7 +119,7 @@ const YourBoard = () => {
                     let cover = Buffer.from(otherBoards[i].cover.data.data, "binary").toString('base64')
                     return (
                         <div className='self-center justify-center'>
-                            <BoardTile key={j} cover={"data:image/jpg;base64,"+cover} title={otherBoards[i]["title"]} owner={otherBoards[i]["owner"]} createdAt={otherBoards[i]["createdAt"]} id={otherBoards[i]._id}/>
+                            <BoardTile key={j} cover={"data:image/jpg;base64,"+cover} title={otherBoards[i]["title"]} ownerUserName={otherBoards[i]["owner"].userName} ownerId={otherBoards[i]["owner"]._id} createdAt={otherBoards[i]["createdAt"]} id={otherBoards[i]._id}/>
                         </div>
                         
                         )

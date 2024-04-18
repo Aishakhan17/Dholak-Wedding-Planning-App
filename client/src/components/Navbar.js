@@ -170,12 +170,14 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function Example() {
+export default function Navbar() {
     const [open, setOpen] = useState(false)
     const {user, isAuthenticated, updateAuth, updateUser} = useUpdate()
     const navigate = useNavigate()
 
+
     const logout = () => {
+        //add functionality to delete session data when logout 
         updateAuth(false)
         updateUser(initUser)
         console.log("logged out")
@@ -183,6 +185,9 @@ export default function Example() {
 
     }
 
+    // async function getNotifications(currentUser) {
+        
+    // }
     return (
         <div className="bg-gray-800 bg-opacity-20 w-full">
         {/* Mobile menu */}
@@ -564,113 +569,6 @@ export default function Example() {
                 }
             
 
-                
-
-                    {/* {isAuthenticated   */}
-                        // {/* Search */}
-                        {/* ? <div className="ml-auto flex items-center">
-                            <div className="flex lg:ml-6">
-                                <a href="#" className="p-2 text-gray-400 hover:text-gray-500">
-                                    <span className="sr-only">Search</span>
-                                    <MagnifyingGlassIcon className="h-6 w-6" aria-hidden="true" />
-                                </a>
-                            </div>
-                            <button
-                                type="button"
-                                className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
-                                <span className="absolute -inset-1.5" />
-                                <span className="sr-only">View notifications</span>
-                                <BellIcon
-                                    className="h-6 w-6"
-                                    aria-hidden="true"
-                                />
-                            </button>
-                            <Menu
-                                as="div"
-                                className="relative ml-3">
-                                <div>
-                                    <Menu.Button className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
-                                        <span className="absolute -inset-1.5" />
-                                        <span className="sr-only">Open user menu</span>
-                                        {user.data.image ?
-                                            <img
-                                                className="h-8 w-8 rounded-full"
-                                                referrerPolicy="no-referrer"
-                                                src={`${user.data.image}`}
-                                                alt=""
-                                            /> :
-                                            <img 
-                                                className="h-8 w-8 rounded-full"
-                                                src={noImg}
-                                                alt=""
-                                            />
-                                        }
-                                    </Menu.Button>
-                                </div>
-                                <Transition
-                                    as={Fragment}
-                                    enter="transition ease-out duration-100"
-                                    enterFrom="transform opacity-0 scale-95"
-                                    enterTo="transform opacity-100 scale-100"
-                                    leave="transition ease-in duration-75"
-                                    leaveFrom="transform opacity-100 scale-100"
-                                    leaveTo="transform opacity-0 scale-95">
-                                    <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                                        <Menu.Item>
-                                            {({ active }) => (
-                                                <a
-                                                    href={`/profile/${user.data.id}`}
-                                                    className={classNames(
-                                                        active ? "bg-gray-100" : "",
-                                                        "block px-4 py-2 text-sm text-gray-700"
-                                                    )}>
-                                                    Your Profile
-                                                </a>
-                                            )}
-                                        </Menu.Item>
-                                        <Menu.Item>
-                                            {({ active }) => (
-                                                <a
-                                                    href="#"
-                                                    className={classNames(
-                                                        active ? "bg-gray-100" : "",
-                                                        "block px-4 py-2 text-sm text-gray-700"
-                                                    )}>
-                                                    Settings
-                                                </a>
-                                            )}
-                                        </Menu.Item>
-                                        <Menu.Button
-                                            onClick={logout}
-                                        >
-                                            {({ active }) => (
-                                                <a
-                                                    href="#"
-                                                    className={classNames(
-                                                        active ? "bg-gray-100" : "",
-                                                        "block px-4 py-2 text-sm text-gray-700"
-                                                    )}>
-                                                    Sign out
-                                                </a>
-                                            )}
-                                        </Menu.Button>
-                                    </Menu.Items>
-                                </Transition>
-                            </Menu>
-                        </div>
-                        : <div className="ml-auto flex items-center">
-                            <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
-                            <a href="#" className="text-sm font-medium text-gray-700 hover:text-gray-800">
-                                Sign in
-                            </a>
-                            <span className="h-6 w-px bg-gray-200" aria-hidden="true" />
-                            <a href="#" className="text-sm font-medium text-gray-700 hover:text-gray-800">
-                                Create account
-                            </a>
-                            </div>
-                        </div>
-                    } */}
-                    
 
                     
 

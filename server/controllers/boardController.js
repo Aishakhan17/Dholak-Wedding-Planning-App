@@ -24,7 +24,7 @@ async function createBoard(newBoard) {
 async function getUserBoards(data) {
     const id = data.user.data.id
     let owner = await User.findById(id)
-    let newOwner = {firstName: owner.firstName, lastName: owner.lastName, id: owner._id}
+    // let newOwner = {firstName: owner.firstName, lastName: owner.lastName, id: owner._id}
     let boards = await Board.find({owner: data.user.data.id}).populate("owner", "userName").exec()
 
     if (boards) {
@@ -37,7 +37,7 @@ async function getUserBoards(data) {
 }
 
 async function getBoardData(id) {
-    const data = await Board.findById(id)
+    const data = await Board.findById(id).populate("participants").exec()
     if (data) {
         return data
     }

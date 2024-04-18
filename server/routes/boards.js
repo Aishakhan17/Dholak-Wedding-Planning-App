@@ -34,9 +34,9 @@ router.post("/create", upload.single("cover"), async (req, res, next) => {
         owner: req.body.owner,
         private: req.body.private
     }
-    console.log("newBoard", newBoard, newBoard.owner, typeof newBoard.owner)
+    // console.log("newBoard", newBoard, newBoard.owner, typeof newBoard.owner)
     const result = await boardFunctions.createBoard(newBoard)
-    console.log("result", result)
+    // console.log("result", result)
     return res.json(result)
 })
 
@@ -49,10 +49,11 @@ router.post("/get-boards", async (req, res) => {
 })
 
 router.post("/board", async (req, res) => {
-    var id = req.body.id
-    // console.log(id)
+    console.log(req.body)
+    var id = req.body.boardId.boardId
+    console.log(id)
     const boardData = await boardFunctions.getBoardData(id)
-    // console.log(boardData)
+    // // console.log(boardData)
     return res.json(boardData)
 })
 

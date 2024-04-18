@@ -1,6 +1,6 @@
 const mongoose = require("mongoose")
 
-const PartnerSchene = new mongoose.Schema({
+const PartnerSchema = new mongoose.Schema({
     businessName: {
         type: String,
         required: true
