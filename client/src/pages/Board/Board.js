@@ -8,7 +8,7 @@ import axios from 'axios'
 import { Buffer } from 'buffer';
 import ImageCarousel from '../../components/ImageCarousel';
 import ListAndCards from '../../components/ListAndCards';
-import { reload } from 'firebase/auth';
+
 
 const Board = () => {
     let { id } = useParams()
