@@ -161,8 +161,8 @@ const navigation = {
     },
   ],
   pages: [
-    { name: 'Your Boards', href: '/your-boards' },
     { name: 'Testimonials', href: '/testimonials' },
+    { name: 'Home', href: '/home' },
   ],
 }
 
@@ -185,6 +185,7 @@ export default function Navbar() {
 
     }
 
+    let notifications = {}
     // async function getNotifications(currentUser) {
         
     // }
@@ -230,15 +231,15 @@ export default function Navbar() {
 
                     {/* Links */}
                     <Tab.Group as="div" className="mt-2">
-                    <div className="border-b border-gray-200">
+                    <div className="border-b border-backrgound">
                         <Tab.List className="-mb-px flex space-x-8 px-4">
                         {navigation.categories.map((category) => (
                             <Tab
                             key={category.name}
                             className={({ selected }) =>
                                 classNames(
-                                selected ? 'border-orange-400 text-orange-400' : 'border-transparent text-gray-800',
-                                'flex-1 whitespace-nowrap border-b-2 px-1 py-4 text-base font-medium'
+                                selected ? ' text-orange' : 'border-transparent text-gray-800',
+                                'flex-1 whitespace-nowrap border-b px-1 py-4 text-base font-medium'
                                 )
                             }
                             >
@@ -260,7 +261,7 @@ export default function Navbar() {
                                     <span className="absolute inset-0 z-10" aria-hidden="true" />
                                     {item.name}
                                 </a>
-                                <p aria-hidden="true" className="mt-1 text-orange-400">
+                                <p aria-hidden="true" className="mt-1 text-orange">
                                     <strong>
                                         View now
                                     </strong>
@@ -270,7 +271,7 @@ export default function Navbar() {
                             </div>
                             {category.sections.map((section) => (
                             <div key={section.name}>
-                                <p id={`${category.id}-${section.id}-heading-mobile`} className="font-medium text-gray-800 hover:text-orange-400">
+                                <p id={`${category.id}-${section.id}-heading-mobile`} className="font-medium text-gray-800 hover:text-orange">
                                 {section.name}
                                 </p>
                                 <ul
@@ -372,9 +373,9 @@ export default function Navbar() {
                                         <Popover.Button
                                         className={classNames(
                                             open
-                                            ? 'border-orange-400 text-orange-400'
-                                            : 'border-transparent text-white hover:text-gray-300',
-                                            'relative z-10 -mb-px flex items-center border-b-2 pt-px text-sm font-medium transition-colors duration-200 ease-out'
+                                            ? 'border-orange text-orange'
+                                            : ' text-white hover:text-gray-300',
+                                            'relative z-10 -mb-px flex items-center pt-px text-sm font-medium transition-colors duration-200 ease-out'
                                         )}
                                         >
                                         {category.name}
@@ -411,7 +412,7 @@ export default function Navbar() {
                                                         <span className="absolute inset-0 z-10" aria-hidden="true" />
                                                         {item.name}
                                                     </a>
-                                                    <p aria-hidden="true" className="mt-1 text-orange-400">
+                                                    <p aria-hidden="true" className="mt-1 text-orange">
                                                         <strong>
                                                             View now
                                                         </strong>
@@ -422,7 +423,7 @@ export default function Navbar() {
                                                 <div className="row-start-1 grid grid-cols-3 gap-x-8 gap-y-10 text-sm">
                                                 {category.sections.map((section) => (
                                                     <div key={section.name}>
-                                                    <p id={`${section.name}-heading`} className="font-medium text-gray-800 hover:text-orange-400">
+                                                    <p id={`${section.name}-heading`} className="font-medium text-gray-800 hover:text-orange">
                                                         <strong>
                                                             {section.name}
                                                         </strong>
@@ -434,7 +435,7 @@ export default function Navbar() {
                                                     >
                                                         {section.items.map((item) => (
                                                         <li key={item.name} className="flex">
-                                                            <a href={item.href} className="hover:text-orange-400">
+                                                            <a href={item.href} className="hover:text-orange">
                                                             {item.name}
                                                             </a>
                                                         </li>
@@ -466,21 +467,99 @@ export default function Navbar() {
                         </Popover.Group> 
                         <div className="ml-auto flex items-center">
                             <div className="flex lg:ml-6">
-                                <a href="#" className="p-2 text-gray-400 hover:text-gray-500">
+                                <a href="#" className="p-2 text-white hover:text-gray-500">
                                     <span className="sr-only">Search</span>
                                     <MagnifyingGlassIcon className="h-6 w-6" aria-hidden="true" />
                                 </a>
                             </div>
-                            <button
+                            {/* <button
                                 type="button"
-                                className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                                className="relative rounded-full bg-orange p-1 text-white hover:text-foreground focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                                 <span className="absolute -inset-1.5" />
                                 <span className="sr-only">View notifications</span>
                                 <BellIcon
                                     className="h-6 w-6"
                                     aria-hidden="true"
                                 />
-                            </button>
+                            </button> */}
+
+                            {/* notifications dropdown */}
+                            <Menu
+                                as="div"
+                                className="relative ml-3">
+                                <div>
+                                    <Menu.Button className="relative rounded-full bg-orange p-1 text-white hover:text-foreground focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                                        <span className="absolute -inset-1.5" />
+                                        <span className="sr-only">Open user menu</span>
+                                        <span className="absolute -inset-1.5" />
+                                    <span className="sr-only">View notifications</span>
+                                    <BellIcon
+                                        className="h-6 w-6"
+                                        aria-hidden="true"
+                                    />
+                                    </Menu.Button>
+                                </div>
+                                    {notifications.length > 0 
+                                    ? <div> 
+                                        {Object.keys(notifications).map((i, j) => {
+                                            return (
+                                                <div>
+                                                    <Transition
+                                                        as={Fragment}
+                                                        enter="transition ease-out duration-100"
+                                                        enterFrom="transform opacity-0 scale-95"
+                                                        enterTo="transform opacity-100 scale-100"
+                                                        leave="transition ease-in duration-75"
+                                                        leaveFrom="transform opacity-100 scale-100"
+                                                        leaveTo="transform opacity-0 scale-95">
+                                                    <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                                                        <Menu.Item>
+                                                            {({ active }) => (
+                                                                <a
+                                                                    href={`/profile/${user.data.id}`}
+                                                                    className={classNames(
+                                                                        active ? "bg-gray-100" : "",
+                                                                        "block px-4 py-2 text-sm text-gray-700"
+                                                                    )}>
+                                                                    Your Profile
+                                                                </a>
+                                                            )}
+                                                        </Menu.Item>
+                                                    </Menu.Items>
+                                                    </Transition>
+                                                </div>
+                                                    )
+                                            })}
+                                        </div>
+                                    : <div>
+                                        <Transition
+                                            as={Fragment}
+                                            enter="transition ease-out duration-100"
+                                            enterFrom="transform opacity-0 scale-95"
+                                            enterTo="transform opacity-100 scale-100"
+                                            leave="transition ease-in duration-75"
+                                            leaveFrom="transform opacity-100 scale-100"
+                                            leaveTo="transform opacity-0 scale-95">
+                                            <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                                                <Menu.Item>
+                                                    {({ active }) => (
+                                                        <a
+                                                            href={`/profile/${user.data.id}`}
+                                                            className={classNames(
+                                                                active ? "bg-gray-100" : "",
+                                                                "block px-4 py-2 text-sm text-gray-700"
+                                                            )}>
+                                                            No new notifications
+                                                        </a>
+                                                    )}
+                                                </Menu.Item>
+                                            </Menu.Items>
+                                        </Transition>
+                                    </div>
+                                }
+                            </Menu>
+
+                            {/* profile dropdown */}
                             <Menu
                                 as="div"
                                 className="relative ml-3">
@@ -557,11 +636,11 @@ export default function Navbar() {
                         </>
                     :   <div className="ml-auto flex items-center">
                             <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
-                            <a href="/login" className="text-sm font-medium text-white hover:text-orange-400">
+                            <a href="/login" className="text-sm font-medium text-white hover:text-orange">
                                 Sign in
                             </a>
                             <span className="h-6 w-px bg-gray-200" aria-hidden="true" />
-                            <a href="/signup" className="text-sm font-medium text-white hover:text-orange-400">
+                            <a href="/signup" className="text-sm font-medium text-white hover:text-orange">
                                 Create account
                             </a>
                             </div>

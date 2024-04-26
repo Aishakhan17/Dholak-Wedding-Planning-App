@@ -1,20 +1,30 @@
 import React, { useState, useEffect } from 'react'
-import Navbar from '../../components/Navbar'
-import { useUpdate } from '../../utils/Context'
-import BoardTile from '../../components/BoardTile'
+import { useUpdate } from "../utils/Context"
+import BoardTile from '../components/BoardTile'
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
-import BoardForm from '../../components/BoardForm';
+import BoardForm from "../components/BoardForm";
 import axios from 'axios';
-import Loading from '../../components/Loading';
+import Loading from '../components/Loading';
 import { Buffer } from 'buffer';
+import noImg from "../assets/noImg.png"
 
-const YourBoard = () => {
+const YourBoards = () => {
     const [isLoading, setIsLoading] = useState(false)
     const [boards, setBoards] = useState([])
-    const [otherBoards, setOtherBoards] = useState([])
     const {user} = useUpdate()
-    const id = user.data.id
+    const userId = user.data.id
+    const userFirstName = user.data.firstName
+    const userLastName = user.data.lastName
+    let ownerImage
+    
+    
+    if (user.data.image) {
+        ownerImage = user.data.image
+    }
+    else {
+        ownerImage = noImg
+    }
 
     useEffect(() => {
         let isCancelled = false
@@ -24,18 +34,6 @@ const YourBoard = () => {
         )
         }
         // console.log("boards", boards)
-        return () => {
-            isCancelled = true
-        }
-        }, [])
-
-    useEffect(() => {
-        let isCancelled = false
-        if (!isCancelled) {
-            const publicResult = fetchPublicBoards()
-            publicResult.then((publicResult) => {setOtherBoards(publicResult.data)}
-        )
-        }
         return () => {
             isCancelled = true
         }
@@ -59,20 +57,6 @@ const YourBoard = () => {
         }
     }
 
-    async function fetchPublicBoards() {
-        const publicBoards = await axios.post(
-            `${process.env.REACT_APP_API_URL}/boards/get-public-boards`, {
-                id
-            }
-        )
-
-        if (Object.keys(publicBoards.data).length !== 0) {
-            return publicBoards
-        } 
-    }
-
-    // console.log("boards", boards)
-    console.log("otherboards", otherBoards)
     if (isLoading) {
         return (
             <Loading />
@@ -81,8 +65,7 @@ const YourBoard = () => {
 
     return (
         <div>
-            <Navbar />
-            <div className='mt-20'>
+            <div>
                 <div className='flex flex-col'> 
                     <a className='self-center justify-center'>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="white" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="mt-10 mb-0 w-8 h-8 self-center justify-center hover:opacity-50">
@@ -100,33 +83,20 @@ const YourBoard = () => {
             </div>
             <h4 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-white">Here are your boards, {user.data.firstName}</h4>
             
-            <div className='mt-10 mb-10 grid 2xl:grid-cols-5 xl:grid-cols-4 lg:grid-cols-3 px-10 md:grid-cols-2 place-items-center'>
+            <div className='mt-10 grid 2xl:grid-cols-5 xl:grid-cols-4 lg:grid-cols-3 px-10 md:grid-cols-2 place-items-center'>
                 {Object.keys(boards).map((i,j) => {
                     let cover = Buffer.from(boards[i].cover.data.data, "binary").toString('base64')
                     return (
                         <div className='self-center justify-center'>
-                            <BoardTile key={j} cover={"data:image/jpg;base64,"+cover} title={boards[i]["title"]} ownerUserName={boards[i]["owner"].userName} ownerId={boards[i]["owner"]._id} createdAt={boards[i]["createdAt"]} boardId={boards[i]._id}/>
+                            <BoardTile key={j} cover={"data:image/jpg;base64,"+cover} title={boards[i]["title"]} ownerFirstName={userFirstName} ownerLastName={userLastName} ownerId={userId} ownerImage={ownerImage} createdAt={boards[i]["createdAt"]} boardId={boards[i]._id}/>
                         </div>
                         
                         )
                     }
                 )}
             </div>
-            <h4 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-white">Other boards we thought you might be interested in!</h4>
-            
-            <div className='mt-10 mb-10 grid 2xl:grid-cols-5 xl:grid-cols-4 lg:grid-cols-3 px-10 md:grid-cols-2 place-items-center'>
-                {Object.keys(otherBoards).map((i, j) => {
-                    let cover = Buffer.from(otherBoards[i].cover.data.data, "binary").toString('base64')
-                    return (
-                        <div className='self-center justify-center'>
-                            <BoardTile key={j} cover={"data:image/jpg;base64,"+cover} title={otherBoards[i]["title"]} ownerUserName={otherBoards[i]["owner"].userName} ownerId={otherBoards[i]["owner"]._id} createdAt={otherBoards[i]["createdAt"]} id={otherBoards[i]._id}/>
-                        </div>
-                        
-                        )
-                })}
-            </div>
         </div>
     )
 }
 
-export default YourBoard
+export default YourBoards

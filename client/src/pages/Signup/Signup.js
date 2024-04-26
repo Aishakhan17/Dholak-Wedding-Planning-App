@@ -114,7 +114,7 @@ const Signup = () => {
                 </div> */}
                 <div>
                     {errorMessage && 
-                        <h3 className="mt-10 text-center text-1xl font-semi-bold leading-9 tracking-tight text-orange-400">{errorMessage}</h3>
+                        <h3 className="mt-10 text-center text-1xl font-semi-bold leading-9 tracking-tight text-orange">{errorMessage}</h3>
                     }
                 </div>
                 <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
@@ -135,7 +135,7 @@ const Signup = () => {
                                     {...register("firstName")}
                                     type="text"
                                     autoComplete="First Name"
-                                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-400 sm:text-sm sm:leading-6"
+                                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange sm:text-sm sm:leading-6"
                                 />
                                 <div className="invalid-feedback">{errors.firstName?.message}</div>
                             </div>
@@ -153,7 +153,7 @@ const Signup = () => {
                                     {...register("lastName")}
                                     type="text"
                                     autoComplete="Last Name"
-                                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-400 sm:text-sm sm:leading-6"
+                                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange sm:text-sm sm:leading-6"
                                 />
                                 <div className="invalid-feedback">{errors.lastName?.message}</div>
                             </div>
@@ -242,7 +242,7 @@ const Signup = () => {
                         <div>
                             <button
                                 type="submit"
-                                className="flex w-full justify-center rounded-md bg-orange-400 hover:bg-opacity-90 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                                className="flex w-full justify-center rounded-md bg-orange hover:bg-opacity-90 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
                                 Sign up
                             </button>
                         </div>
@@ -251,7 +251,7 @@ const Signup = () => {
                         <button
                             type="button"
                             // class="flex w-full justify-center items-center rounded-md bg-[#4285F4] hover:bg-[#4285F4]/90 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                            className="flex w-full justify-center items-center rounded-md bg-transparent hover:text-orange-400 px-3 py-1.5 text-sm font-semibold leading-6 text-white border-current shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-400"
+                            className="flex w-full justify-center items-center rounded-md bg-transparent hover:text-orange px-3 py-1.5 text-sm font-semibold leading-6 text-white border-current shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-400"
                             onClick={() => login()}
                             >
                             <svg
@@ -270,11 +270,11 @@ const Signup = () => {
                         </button>
                     </div>
 
-                    <p className="mt-10 text-center text-sm text-gray-500">
+                    <p className="mt-10 text-center text-sm text-white">
                         Already a member?{" "}
                         <a
                             href="/login"
-                            className="font-semibold leading-6 text-white hover:text-orange-400">
+                            className="font-semibold leading-6 text-white hover:text-orange">
                             Login
                         </a>
                     </p>

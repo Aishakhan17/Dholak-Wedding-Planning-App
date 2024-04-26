@@ -4,7 +4,6 @@ const mongoose = require("mongoose")
 
 
 async function createBoard(newBoard) {
-    // console.log("create board", newBoard)
     try {
         let board = await Board.create(newBoard)
         if (board) {
@@ -22,45 +21,86 @@ async function createBoard(newBoard) {
 }
 
 async function getUserBoards(data) {
-    const id = data.user.data.id
-    let owner = await User.findById(id)
-    // let newOwner = {firstName: owner.firstName, lastName: owner.lastName, id: owner._id}
-    let boards = await Board.find({owner: data.user.data.id}).populate("owner", "userName").exec()
+    try {
+        const id = data.user.data.id
+        let owner = await User.findById(id).populate({
+            path: "boards",
+            model: "Board",
+        }).exec()
+        
 
-    if (boards) {
-        return boards
-    } 
-    else {
-        return {error: "There was a problem fetching boards"}
+        if (owner) {
+            let boards = owner.boards
+            return boards
+        } 
+        else {
+            return {error: "There was a problem fetching boards"}
+        }
+    } catch (error) {
+        return error
     }
 
 }
 
 async function getBoardData(id) {
-    const data = await Board.findById(id).populate("participants").exec()
-    if (data) {
-        return data
-    }
-    else {
-        return {"error": "trouble loading board"}
+    try {
+        const data = await Board.findById(id).populate({
+        path: "participants",
+        model: "User",
+        select: "firstName lastName _id"
+        })
+        .populate("images")
+        .exec()
+        if (data) {
+            return data
+        }
+        else {
+            return {error: "trouble loading board"}
+        }
+    } catch (error) {
+        return error    
     }
 }
 
 async function getPublicBoardData(id) {
     var result = []
-    const data = await Board.find({private: false}).populate("owner", "userName").exec()
-    // console.log("data", data)
-    Object.keys(data).map((i) => {
-        if (data[i].owner._id.toString() !== id) {
-            result.push(data[i])
+    try {
+        const data = await Board.find({private: false}).populate({
+        path: "owner",
+        model: "User",
+        select: "firstName lastName _id image"
+        }).exec()
+        Object.keys(data).map((i) => {
+            if (data[i].owner._id.toString() !== id) {
+                result.push(data[i])
+            }
+        })
+        return result
+    } catch (error) {
+        return error
+    }
+}
+
+async function addImages(id, image) {
+    try {
+        const board = await Board.findById(id)
+        if (board) {
+            board.images.push(image)
+            board.save()
+            return board.images
         }
-    })
-    return result
+        else {
+            return {error: "There was an issue uploading the picture, try again"}
+        }
+    } catch (error) {
+        return error
+    }
 }
 
 module.exports = {
     createBoard,
     getUserBoards,
     getBoardData, 
-    getPublicBoardData
+    getPublicBoardData,
+    addImages
 }

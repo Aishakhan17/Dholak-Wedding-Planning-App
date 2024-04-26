@@ -4,6 +4,10 @@ const User = require("../models/User")
 
 
 const NotificationSchema = new mongoose.Schema({
+    board: {
+        type: Schema.Types.ObjectId,
+        ref: "Board"
+    },
     toUser: {
         type: Schema.Types.ObjectId,
         ref: "User"

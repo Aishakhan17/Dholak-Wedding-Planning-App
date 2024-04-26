@@ -10,7 +10,6 @@ import PrivateWrapper from "./components/PrivateWrapper";
 import PublicWrapper from "./components/PublicWrapper";
 import Trending from "./pages/Trending/Trending";
 import Vendors from "./pages/Vendors/Vendors";
-import YourBoards from "./pages/Board/YourBoards";
 import Landing from "./pages/Landing/Landing";
 import Testimonials from "./pages/Testimonials/Testimonials";
 import Profile from "./pages/Profile/Profile";
@@ -53,11 +52,11 @@ function App() {
                 </PrivateWrapper> 
                     }
                 />
-                <Route path="/your-boards" element={<PrivateWrapper>
+                {/* <Route path="/your-boards" element={<PrivateWrapper>
                     <YourBoards />
                 </PrivateWrapper> 
                     }
-                />
+                /> */}
                 <Route path="/board-form" element={<PrivateWrapper>
                     <BoardForm />
                 </PrivateWrapper> 

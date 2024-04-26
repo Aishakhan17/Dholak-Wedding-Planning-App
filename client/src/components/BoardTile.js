@@ -1,12 +1,17 @@
-const BoardTile = ({title, cover, ownerUserName, ownerId, createdAt, boardId}) => {
+const BoardTile = ({title, cover, ownerFirstName, ownerLastName, ownerId, ownerImage, createdAt, boardId}) => {
+    let boardTitle = title.slice(0,20)
     return (
-        <div className='flex flex-col w-44 h-content'>
-            <div className='flex flex-col'>
-                <img src={cover}/>
-                <h4 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-white"><a href={`/board/${boardId}`}>{title}</a></h4>
-                <div className='flex flex-row'>
-                    <p className="mt-10 text-center text-xs font-bold leading-9 tracking-tight text-white">Created by {ownerUserName}</p>
-                    {/* <p className="mt-10 text-center text-xs font-bold leading-9 tracking-tight text-white">{moment(createdAt).format("MMM Do YYYY")}</p> */}
+        <div className='justify-center'> 
+            <div className='mt-5 w-3/4 min-w-3/4 max-w-3/4 h-54 max-h-54 min-h-54 flex flex-col'> 
+                <div className="h-72 min-h-72 max-h-72 w-auto max-w-48 min-w-48 self-center"> 
+                    <img className="h-full min-h-full mx-auto w-full  rounded-md self-center" src={cover}/> 
+                </div>
+                <div className="h-20"> 
+                    <p className="mt-2 text-xs text-center leading-9 tracking-tight text-white"><a href={`/board/${boardId}`}>{boardTitle}..</a> </p>
+                    <div className="flex flex-row justify-center">
+                        <img className="h-5 w-5 self-center rounded-full" src={ownerImage} />
+                        <p className="ml-2 text-xs self-center leading-9 tracking-tight text-white"><a href={`/profile/${ownerId}`}>{ownerFirstName} {ownerLastName}</a></p>
+                    </div>
                 </div>
             </div>
         </div>

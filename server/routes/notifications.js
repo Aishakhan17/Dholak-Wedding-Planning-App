@@ -2,7 +2,7 @@ const express = require("express")
 const router = express.Router()
 const Board = require("../models/Board")
 const User = require("../models/User")
-const Requests = require("../models/Requests")
+const Notifications = require("../models/Notifications")
 
 router.post("/add-members", async (req, res) => {
     const board = await Board.findById(req.body.boardId.boardId)

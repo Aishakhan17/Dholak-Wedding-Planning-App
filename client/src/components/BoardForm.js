@@ -6,7 +6,6 @@ import { Switch } from '@headlessui/react'
 
 
 const BoardForm = () => {
-    const [isLoading, setIsLoading] = useState()
     const [errorMessage, setErrorMessage] = useState()
     const {user} = useUpdate()
     const navigate = useNavigate()
@@ -15,7 +14,6 @@ const BoardForm = () => {
 
     const handleBoardCreation = async (event) => {
         event.preventDefault()
-        // console.log(event)
         let title = await event.target[0].value 
         let description = await event.target[1].value
         let cover = await event.target[2].files[0]
@@ -32,10 +30,9 @@ const BoardForm = () => {
 
         const boardStatus = await axios.post(
             `${process.env.REACT_APP_API_URL}/boards/create`, myFormData, {
-                // headers: {
-                //     "Content-Type": "multipart/form-data"
-                // },
-                // 'X-Requested-With': 'XMLHttpRequest'
+                headers: {
+                    "Content-Type": "multipart/form-data"
+                },
             },
         )
         console.log("boardStatus", boardStatus)
@@ -58,6 +55,7 @@ const BoardForm = () => {
         }
         console.log(privateBoard)
     })
+
     return (
         <div className="bg-white flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8"> 
             <div className='self-start pl-3 sm:mx-auto sm:w-full sm:max-w-sm'>
@@ -66,7 +64,12 @@ const BoardForm = () => {
                         <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
                     </svg>
                 </a>
-                <h4 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Create Board</h4>
+                <h4 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-foreground">Create Board</h4>
+                <div>
+                    {errorMessage && 
+                        <h3 className="mt-10 text-center text-1xl font-semi-bold leading-9 tracking-tight text-foreground">{errorMessage}</h3>
+                    }
+                </div>
             </div>
             <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
                 <form
@@ -138,7 +141,7 @@ const BoardForm = () => {
                             <Switch
                                 checked={enabled}
                                 onChange={setEnabled}
-                                className={`${enabled ? 'bg-orange-400' : 'bg-gray-500'}
+                                className={`${enabled ? 'bg-orange' : 'bg-foreground'}
                                 relative inline-flex h-[24px] w-[50px] shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2  focus-visible:ring-white/75`}
                             >
                                 <span className="sr-only">Use setting</span>
@@ -153,7 +156,7 @@ const BoardForm = () => {
                     <div>
                         <button
                             type="submit"
-                            className="flex w-full justify-center rounded-md bg-orange-400 hover:bg-opacity-90 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                            className="flex w-full justify-center rounded-md bg-orange hover:bg-opacity-90 px-3 py-1.5 text-sm font-semibold leading-6 text-gray shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
                             Create
                         </button>
                     </div>

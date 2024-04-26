@@ -71,7 +71,8 @@ app.use("/", require("./routes/index"))
 app.use("/auth", require("./routes/auth"))
 app.use("/boards", require("./routes/boards"))
 app.use("/users", require("./routes/users"))
-app.use("/requests", require("./routes/requests"))
+app.use("/lists", require("./routes/lists"))
+app.use("/notifications", require("./routes/notifications"))
 
 
 const PORT = process.env.PORT || 3000

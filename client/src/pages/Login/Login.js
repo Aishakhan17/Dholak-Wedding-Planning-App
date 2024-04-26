@@ -127,7 +127,7 @@ const Login = () => {
                                     type="email"
                                     autoComplete="email"
                                     required
-                                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-400 sm:text-sm sm:leading-6"
+                                    className="block w-full rounded-md border-0 py-1.5 text-foreground shadow-sm ring-1 ring-inset ring-foreground placeholder:text-foreground focus:ring-2 focus:ring-inset focus:ring-orange sm:text-sm sm:leading-6"
                                 />
                             </div>
                         </div>
@@ -147,7 +147,7 @@ const Login = () => {
                                     type="password"
                                     autoComplete="current-password"
                                     required
-                                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-400 sm:text-sm sm:leading-6"
+                                    className="block w-full rounded-md border-0 py-1.5 text-foreground shadow-sm ring-1 ring-inset ring-foreground placeholder:text-foreground focus:ring-2 focus:ring-inset focus:ring-orange sm:text-sm sm:leading-6"
                                 />
                             </div>
                         </div>
@@ -155,7 +155,7 @@ const Login = () => {
                         <div>
                             <button
                                 type="submit"
-                                className="flex w-full justify-center rounded-md bg-orange-400 hover:bg-opacity-90 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                                className="flex w-full justify-center rounded-md bg-orange hover:bg-opacity-90 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                                 >
                                 Sign in
                             </button>
@@ -164,7 +164,7 @@ const Login = () => {
                     <div className="flex flex-col items-center mt-5">
                         <button
                             type="button"
-                            className="flex w-full justify-center items-center rounded-md bg-transparent hover:text-orange-400 px-3 py-1.5 text-sm font-semibold leading-6 text-white border-current shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                            className="flex w-full justify-center items-center rounded-md bg-transparent hover:text-orange px-3 py-1.5 text-sm font-semibold leading-6 text-white border-current shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                             onClick={() => login()}
                         >
                             <svg
@@ -183,14 +183,16 @@ const Login = () => {
                         </button>
                     </div>
 
-                    <p className="mt-10 text-center text-sm text-gray-500">
-                        Not a member?{" "}
-                        <a
-                            href="/signup"
-                            className="font-semibold leading-6 text-white hover:text-orange-400">
-                            Sign up
-                        </a>
-                    </p>
+                    <div>
+                        <p className="mt-10 text-center text-sm text-white">
+                            Not a member?{" "}
+                            <a
+                                href="/signup"
+                                className="font-semibold leading-6 text-white hover:text-orange">
+                                Sign up
+                            </a>
+                        </p>
+                    </div>
                 </div>
                 </div>
             </div>
