@@ -230,92 +230,98 @@ export default function Navbar() {
                     </div>
 
                     {/* Links */}
-                    <Tab.Group as="div" className="mt-2">
-                    <div className="border-b border-backrgound">
-                        <Tab.List className="-mb-px flex space-x-8 px-4">
-                        {navigation.categories.map((category) => (
-                            <Tab
-                            key={category.name}
-                            className={({ selected }) =>
-                                classNames(
-                                selected ? ' text-orange' : 'border-transparent text-gray-800',
-                                'flex-1 whitespace-nowrap border-b px-1 py-4 text-base font-medium'
-                                )
-                            }
-                            >
-                            {category.name}
-                            </Tab>
-                        ))}
-                        </Tab.List>
-                    </div>
-                    <Tab.Panels as={Fragment}>
-                        {navigation.categories.map((category) => (
-                        <Tab.Panel key={category.name} className="space-y-10 px-4 pb-8 pt-10">
-                            <div className="grid grid-cols-2 gap-x-4">
-                            {category.featured.map((item) => (
-                                <div key={item.name} className="group relative text-sm">
-                                <div className="aspect-h-1 aspect-w-1 overflow-hidden rounded-lg bg-gray-100 group-hover:opacity-75">
-                                    <img src={item.imageSrc} alt={item.imageAlt} className="object-cover object-center opacity-95" />
-                                </div>
-                                <a href={item.href} className="mt-6 block font-medium text-gray-800 hover:text-gray-500">
-                                    <span className="absolute inset-0 z-10" aria-hidden="true" />
-                                    {item.name}
-                                </a>
-                                <p aria-hidden="true" className="mt-1 text-orange">
-                                    <strong>
-                                        View now
-                                    </strong>
-                                </p>
-                                </div>
-                            ))}
-                            </div>
-                            {category.sections.map((section) => (
-                            <div key={section.name}>
-                                <p id={`${category.id}-${section.id}-heading-mobile`} className="font-medium text-gray-800 hover:text-orange">
-                                {section.name}
-                                </p>
-                                <ul
-                                role="list"
-                                aria-labelledby={`${category.id}-${section.id}-heading-mobile`}
-                                className="mt-6 flex flex-col space-y-6"
-                                >
-                                {section.items.map((item) => (
-                                    <li key={item.name} className="flow-root">
-                                    <a href={item.href} className="-m-2 block p-2 text-gray-800">
-                                        {item.name}
+                    {isAuthenticated 
+                        ?   <div>   
+                                <Tab.Group as="div" className="mt-2">
+                                    <div className="border-b border-backrgound">
+                                        <Tab.List className="-mb-px flex space-x-8 px-4">
+                                        {navigation.categories.map((category) => (
+                                            <Tab
+                                            key={category.name}
+                                            className={({ selected }) =>
+                                                classNames(
+                                                selected ? ' text-orange' : 'border-transparent text-gray-800',
+                                                'flex-1 whitespace-nowrap border-b px-1 py-4 text-base font-medium'
+                                                )
+                                            }
+                                            >
+                                            {category.name}
+                                            </Tab>
+                                        ))}
+                                        </Tab.List>
+                                    </div>
+                                    <Tab.Panels as={Fragment}>
+                                        {navigation.categories.map((category) => (
+                                        <Tab.Panel key={category.name} className="space-y-10 px-4 pb-8 pt-10">
+                                            <div className="grid grid-cols-2 gap-x-4">
+                                            {category.featured.map((item) => (
+                                                <div key={item.name} className="group relative text-sm">
+                                                <div className="aspect-h-1 aspect-w-1 overflow-hidden rounded-lg bg-gray-100 group-hover:opacity-75">
+                                                    <img src={item.imageSrc} alt={item.imageAlt} className="object-cover object-center opacity-95" />
+                                                </div>
+                                                <a href={item.href} className="mt-6 block font-medium text-gray-800 hover:text-gray-500">
+                                                    <span className="absolute inset-0 z-10" aria-hidden="true" />
+                                                    {item.name}
+                                                </a>
+                                                <p aria-hidden="true" className="mt-1 text-orange">
+                                                    <strong>
+                                                        View now
+                                                    </strong>
+                                                </p>
+                                                </div>
+                                            ))}
+                                            </div>
+                                            {category.sections.map((section) => (
+                                            <div key={section.name}>
+                                                <p id={`${category.id}-${section.id}-heading-mobile`} className="font-medium text-gray-800 hover:text-orange">
+                                                {section.name}
+                                                </p>
+                                                <ul
+                                                role="list"
+                                                aria-labelledby={`${category.id}-${section.id}-heading-mobile`}
+                                                className="mt-6 flex flex-col space-y-6"
+                                                >
+                                                {section.items.map((item) => (
+                                                    <li key={item.name} className="flow-root">
+                                                    <a href={item.href} className="-m-2 block p-2 text-gray-800">
+                                                        {item.name}
+                                                    </a>
+                                                    </li>
+                                                ))}
+                                                </ul>
+                                            </div>
+                                            ))}
+                                        </Tab.Panel>
+                                        ))}
+                                    </Tab.Panels>
+                                </Tab.Group>
+
+                                <div className="space-y-6 border-t border-gray-200 px-4 py-6">
+                                {navigation.pages.map((page) => (
+                                    <div key={page.name} className="flow-root">
+                                    <a href={page.href} className="-m-2 block p-2 font-medium text-gray-800">
+                                        {page.name}
                                     </a>
-                                    </li>
+                                    </div>
                                 ))}
-                                </ul>
+                                </div> 
                             </div>
-                            ))}
-                        </Tab.Panel>
-                        ))}
-                    </Tab.Panels>
-                    </Tab.Group>
+                        :   <div>
+                                <div className="space-y-6 border-t border-gray-200 px-4 py-6">
+                                    <div className="flow-root">
+                                        <a href="/login" className="-m-2 block p-2 font-medium text-gray-900">
+                                        Sign in
+                                        </a>
+                                    </div>
+                                    <div className="flow-root">
+                                        <a href="/signup" className="-m-2 block p-2 font-medium text-gray-900">
+                                        Create account
+                                        </a>
+                                    </div>
+                                    </div>
+                            </div>
+                    }
 
-                    <div className="space-y-6 border-t border-gray-200 px-4 py-6">
-                    {navigation.pages.map((page) => (
-                        <div key={page.name} className="flow-root">
-                        <a href={page.href} className="-m-2 block p-2 font-medium text-gray-800">
-                            {page.name}
-                        </a>
-                        </div>
-                    ))}
-                    </div>
-
-                    {/* <div className="space-y-6 border-t border-gray-200 px-4 py-6">
-                    <div className="flow-root">
-                        <a href="#" className="-m-2 block p-2 font-medium text-gray-900">
-                        Sign in
-                        </a>
-                    </div>
-                    <div className="flow-root">
-                        <a href="#" className="-m-2 block p-2 font-medium text-gray-900">
-                        Create account
-                        </a>
-                    </div>
-                    </div> */}
 
                     {/* <div className="border-t border-gray-200 px-4 py-6">
                     <a href="#" className="-m-2 flex items-center p-2">
@@ -338,7 +344,6 @@ export default function Navbar() {
 
             <nav aria-label="Top" className="mx-auto w-full px-4 sm:px-6 lg:px-8 lg:w-full md:w-full sm:w-full">
             <div>
-                {/* Annoying line css className="border-b border-gray-200"s */}
                 <div className="flex h-16 items-center">
                     <button
                         type="button"
