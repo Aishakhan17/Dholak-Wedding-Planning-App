@@ -19,7 +19,6 @@ const Board = () => {
     let [images, setImages] = useState([])
     let [description, setDescription] = useState("")
     let [participants, setParticipants] = useState([])
-    let [lists, setLists] = useState([])
     let [owner, setOwner] = useState("")
     let [isLoading, setIsLoading] = useState(false)
     const {user} = useUpdate()
@@ -66,11 +65,10 @@ const Board = () => {
                 setDescription(result.data.description)
                 setCover(Buffer.from(result.data.cover.data.data, "binary").toString("base64"))
                 setImages(result.data.images)
-                setLists(result.data.lists)
                 setParticipants(result.data.participants)
                 setOwner(result.data.owner)
             })
-            result.then((result) => console.log("result", result.data))
+            // result.then((result) => console.log("result", result.data))
         }
         return () => {
             isCancelled = true
@@ -109,7 +107,7 @@ const Board = () => {
                 },
             }
         )
-        // console.log(uploadStatus)
+
         if (uploadStatus.data.error) {
             setErrorMessage(uploadStatus.data.error)
         }
@@ -164,7 +162,7 @@ const Board = () => {
                                 </form>
                             </div>
                             <div>
-                                <p className='mt-10 text-center text-xl font-bold leading-9 tracking-tight text-white self-center justify-center'>Discussion</p>
+                                <p className='mt-10 text-center text-xl font-bold leading-9 tracking-tight text-white self-center justify-center'>Huddle Corner</p>
                             </div>
                             <ListAndCards boardId={id}/>
                         </div>

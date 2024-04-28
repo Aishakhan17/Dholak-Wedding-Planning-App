@@ -11,7 +11,8 @@ router.post("/create-list", async (req, res) => {
 
 router.post("/get-lists", async (req, res) => {
     const result = await listFunctions.getBoardLists(req.body.boardId)
-    console.log("list result", result)
+    console.log(result)
+    return res.json(result)
 })
 
 
