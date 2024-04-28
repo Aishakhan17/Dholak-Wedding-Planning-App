@@ -6,7 +6,6 @@ import Loading from './Loading';
 const ImageCarousel = ({images}) => {
     const pictures = ["https://i.pinimg.com/564x/71/df/e7/71dfe758b89347f8a6ac63eb878dd88f.jpg", "https://i.pinimg.com/564x/40/d6/9f/40d69ff869ec10c298d7f35ff5fedf8b.jpg", "https://i.pinimg.com/564x/6b/47/26/6b472651dc4b422d6c794df0c7c7acde.jpg", "https://i.pinimg.com/736x/03/b8/44/03b8444021d91b41073cb14fd8ff934b.jpg", "https://i.pinimg.com/564x/ef/45/b1/ef45b1d25ee0b1647993c21a9da64c62.jpg"]
 
-    console.log("images", images)
 
     const responsive = {
         desktop: {
@@ -50,11 +49,11 @@ const ImageCarousel = ({images}) => {
                     // itemClass="carousel-item-padding-40-px"
                     >
                         {
-                            Object.keys(images).map((i) => {
+                            Object.keys(images).map((i, j) => {
                                 let image = Buffer.from(images[i].data.data, "binary").toString("base64")
                                 return (
-                                    <div className='h-4/5 w-11/12 min-w-11/12 max-w-11/12'>
-                                        <img className="h-full rounded-lg" src={"data:image/jpg;base64,"+image}/>
+                                    <div key={j} className='h-4/5 w-11/12 min-w-11/12 max-w-11/12'>
+                                        <img className="h-full rounded-lg hover:h-auto" src={"data:image/jpg;base64,"+image}/>
                                     </div>
                                 )
                             })

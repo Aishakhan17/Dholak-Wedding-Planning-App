@@ -9,7 +9,7 @@ const BoardSideNav = ({boardId, title, participants, description, cover, partici
 
     if (user.data.id === owner) {
         return (
-            <div className="bg-foreground bg-opacity-80 h-screen max-h-content min-h-screen rounded-md">
+            <div className="bg-foreground bg-opacity-80 h-fit min-h-full rounded-md">
                 <div>
                     <a href='/home'>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-10 h-10 text-black pt-3 ml-5 text-white">
