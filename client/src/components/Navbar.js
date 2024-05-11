@@ -20,6 +20,7 @@ import noImg from "../assets/noImg.png"
 import { useUpdate } from '../utils/Context'
 import { useNavigate } from 'react-router-dom'
 import { initUser } from "../utils/Context"
+import axios from 'axios'
 
 
 const navigation = {
@@ -174,14 +175,37 @@ export default function Navbar() {
     const [open, setOpen] = useState(false)
     const {user, isAuthenticated, updateAuth, updateUser} = useUpdate()
     const navigate = useNavigate()
+    console.log("user", user)
+    let userId
+    if (isAuthenticated) {
+        userId = user.data.id
+    }
 
 
-    const logout = () => {
+    const logout =  async () => {
         //add functionality to delete session data when logout 
-        updateAuth(false)
-        updateUser(initUser)
-        console.log("logged out")
-        navigate("/")
+        let endSession = await axios.get(
+            `${process.env.REACT_APP_API_URL}/auth/logout`, 
+            {
+                withCredentials: true
+            },
+            {
+                crossdomain: true
+            },
+            {
+                headers: {
+                    "Content-Type": "multipart/form-data"
+                },
+            }
+        )
+        .then((endSession) => console.log("endSession", endSession))
+        .then(() => updateAuth(false))
+        .then(() => updateAuth(false))
+        .then(() => updateUser(initUser))
+        .then(() => console.log("logged out"))
+        if (endSession) {
+            navigate("/")
+        }
 
     }
 
@@ -190,7 +214,7 @@ export default function Navbar() {
         
     // }
     return (
-        <div className="bg-gray-800 bg-opacity-20 w-full">
+        <div className="bg-gray-800 bg-opacity-20 w-full "> {/*absolute z-20*/}
         {/* Mobile menu */}
         <Transition.Root show={open} as={Fragment}>
             <Dialog as="div" className="relative z-40 lg:hidden" onClose={setOpen}>
@@ -567,7 +591,7 @@ export default function Navbar() {
                             {/* profile dropdown */}
                             <Menu
                                 as="div"
-                                className="relative ml-3">
+                                className=" ml-3">
                                 <div>
                                     <Menu.Button className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                                         <span className="absolute -inset-1.5" />

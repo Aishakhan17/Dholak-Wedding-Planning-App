@@ -11,7 +11,6 @@ async function googleUserCheck(payload) {
             email: payload.email,
             image: payload.picture,
         }
-    console.log("new User", newUser)
     try {
         let user = await User.findOne({id: newUser.id})
         if (user) {

@@ -27,7 +27,7 @@ const ImageCarousel = ({images}) => {
 
     if (images.length > 0) {
         return (
-            <div className=''>
+            <div className='mt-5 bg-gradient-to-r from-foreground to-black'>
                 <Carousel
                     swipeable={true}
                     draggable={false}
@@ -43,16 +43,17 @@ const ImageCarousel = ({images}) => {
                     customTransition="all .5"
                     transitionDuration={500}
                     containerClass="carousel-container"
-                    removeArrowOnDeviceType={["tablet", "mobile"]}
+                    // removeArrowOnDeviceType={["tablet", "mobile"]}
+                    
                     // deviceType={deviceType}
-                    dotListClass="custom-dot-list-style"
-                    // itemClass="carousel-item-padding-40-px"
+                    // dotListClass="custom-dot-list-style"
+                    itemClass=""
                     >
                         {
                             Object.keys(images).map((i, j) => {
                                 let image = Buffer.from(images[i].data.data, "binary").toString("base64")
                                 return (
-                                    <div key={j} className='h-4/5 w-11/12 min-w-11/12 max-w-11/12'>
+                                    <div key={j} className='mt-5 h-4/5 w-11/12 min-w-11/12 max-w-11/12'>
                                         <img className="h-full rounded-lg hover:h-auto" src={"data:image/jpg;base64,"+image}/>
                                     </div>
                                 )
@@ -65,12 +66,17 @@ const ImageCarousel = ({images}) => {
 
     else {
         return (
-            <div className='bg-foreground bg-opacity-80 p-5 rounded-lg'>
-                <h1 className='mt-5 text-center text-xl font-bold leading-9 tracking-tight text-white self-center justify-center'>This mood board looks dry as hell!</h1>
+            <div className='flex flex-row'>
+                {Object.keys(pictures).map((i) => {
+                    return (
+                        <div className='bg-foreground bg-opacity-80 p-5 rounded-lg'>
+                            <img src={pictures[i]}/>
+                        </div>
+                )
+                })}
             </div>
         )
     }
-    
 }
 
 export default ImageCarousel

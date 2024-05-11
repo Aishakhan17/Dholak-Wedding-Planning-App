@@ -115,7 +115,7 @@ const Board = () => {
             updateImages(uploadStatus.data)
         }   
     }
-
+    console.log("images", images)
     if (isLoading) {
         return (
             <Loading />
@@ -129,12 +129,12 @@ const Board = () => {
                 user.data.id === owner 
 
                 ?   <div className='grid grid-cols-[320px_minmax(400px,_2fr)] gap-x-5 gap-y-10'> 
-                        <div> 
+                        <div className=''> 
                             <BoardSideNav boardId={id} title={title} participants={participants} cover={cover} description={description} participantsChange={participantsChange} boards={boards} owner={owner}/>
                         </div>
-                        <div className='flex flex-col'>
-                            <h1 className='mt-10 text-center text-xl font-bold leading-9 tracking-tight text-white self-center justify-center'>Mood Board</h1>
-                            <div className='mt-10 ml-2 place-items-center'>
+                        <div className=''>
+                            <div className='ml-2 justify-center'>
+                                <h1 className='mt-10 text-center text-xl font-bold leading-9 tracking-tight text-white self-center justify-center'>Mood Board</h1>
                                 <ImageCarousel images={images}/>
                             </div>
                             <div>

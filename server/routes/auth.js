@@ -1,7 +1,8 @@
 const express = require("express")
 const router = express.Router()
 const { OAuth2Client} = require('google-auth-library');
-const authFunctions = require("../controllers/userController")
+const authFunctions = require("../controllers/userController");
+const { Store } = require("express-session");
 
 
 
@@ -24,11 +25,9 @@ router.post('/google', async (req, res) => {
             audience: clientId,
         });
         const payload = await ticket.getPayload();
-        console.log("payload", payload)
         if (payload.email_verified) {
             let userDetails = await authFunctions.googleUserCheck(payload)
                 if (userDetails) {
-                    console.log("userDetails", userDetails)
                     createSession(req, res, userDetails)
                     return res.json(userDetails)
                 }
@@ -37,9 +36,7 @@ router.post('/google', async (req, res) => {
     verify().catch(console.error)
 
     function createSession(req, res, userDetails) {
-        // console.log("req.user", req, req.user)
         req.session.user = userDetails
-        console.log(req.session.user)
     }
 
 });
@@ -56,9 +53,7 @@ router.post('/google/refresh-token', async (req, res) => {
 
 router.post("/login", async (req, res) => {
     const data = req.body
-    console.log("data", data)
     const manualUserDetails = await authFunctions.manaulUserCheck(data)
-        console.log("manualUserDetails", typeof manualUserDetails, manualUserDetails)
         if (!("error" in manualUserDetails) && manualUserDetails !== null) {
             createSession(req, res, manualUserDetails)
             return res.json(manualUserDetails)
@@ -67,7 +62,6 @@ router.post("/login", async (req, res) => {
             return res.json(manualUserDetails)
         }
     function createSession(req, res, manualUserDetails) {
-        // console.log("req.user", req.user)
         req.session.user = manualUserDetails
     }
 })
@@ -75,10 +69,7 @@ router.post("/login", async (req, res) => {
 router.post("/signup", async (req, res) => {
     const data = req.body
     const manualSignupDetails = await authFunctions.newSignUp(data)
-    console.log("manualSignupDetails", manualSignupDetails)
-    // if () {
 
-    // }
     if (!("error" in manualSignupDetails) && manualSignupDetails !== null) {
         //don't create session if error in manual sign up details
         createSession(req, res, manualSignupDetails)
@@ -87,8 +78,24 @@ router.post("/signup", async (req, res) => {
     return res.json(manualSignupDetails)
 
     function createSession(req, res, manualSignupDetails) {
-        // console.log("req.user", req.user)
         req.session.user = manualSignupDetails
+        session.save()
+    }
+})
+
+router.get("/logout", async (req, res) => {
+    console.log(req.session, req.sessionStore, req.sessionID, req.session.id)
+    if (req.session) {
+        req.session.destroy(error => {
+            if (error) {
+                console.log("trouble deleting")
+                return res.json({error: "trouble deleting"})
+            }
+            else {
+                console.log("After", req.session, req.sessionStore)
+                return res.json({logout: true})
+            }
+        })
     }
 })
 

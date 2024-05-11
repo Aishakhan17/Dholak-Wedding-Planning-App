@@ -36,7 +36,7 @@ const AddMembers = ({boardId, participants, participantsChange}) => {
 
     async function addMember(id) {
         const updatedParticipants = await axios.post(
-            `${process.env.REACT_APP_API_URL}/requests/add-members`, {
+            `${process.env.REACT_APP_API_URL}/notifications/add-members`, {
                 id, boardId
             }
         )
@@ -56,7 +56,7 @@ const AddMembers = ({boardId, participants, participantsChange}) => {
     }
 
     return (
-        <div className="bg-white flex min-h-full flex-1 flex-col justify-center self-center px-6 py-12 lg:px-8">
+        <div className="bg-white flex min-h-full flex-1 flex-col justify-center self-center px-6 py-12 lg:px-8 m-auto">
             <div className="sm:mx-auto sm:w-full sm:max-w-sm">
                 {errorMessage && 
                     <h3 className="mt-2 text-xl font-semi-bold leading-9 tracking-tight text-gray-800">{errorMessage}</h3>
@@ -98,7 +98,7 @@ const AddMembers = ({boardId, participants, participantsChange}) => {
                                     <div key={j}>
                                         <div className="flex justify-between p-2 w-4/5 border rounded-md border-slate-400 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-400" key={j}>
                                             {users[i].image 
-                                                ? <img className='h-5 w-5' src={users[i].image}/>
+                                                ? <img className='h-5 w-5 rounded-full' src={users[i].image}/>
                                                 : <img className='h-5 w-5' src={noImg}/>
                                             }
                                             <span><a href={`/profile/${users[i].id}`}>{users[i].firstName} {users[i].lastName}</a></span>

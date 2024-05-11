@@ -5,6 +5,7 @@ const connectDB = require("./config/db")
 const cors = require("cors")
 const morgan = require("morgan")
 const express = require("express")
+const {v4: uuidv4} = require("uuid")
 const session = require("express-session")
 const MongoStore = require("connect-mongo")
 
@@ -46,13 +47,16 @@ app.use(session({
         maxAge: 86400000,
     },
     expire_on_close: false,
-    secure: app.get('NODE_ENV') === 'developmnet'?true:false,
+    secure: app.get('NODE_ENV') === 'development'? true:false,
     SameSite: 'none', 
     credentials: 'include',
-    store: MongoStore.create({mongoUrl: process.env.MONGO_URI})
+    store: MongoStore.create({
+        mongoUrl: process.env.MONGO_URI,
+        ttl: 86400000,
+        // autoRemove: "native",
+        // touchAfter: 24 * 3600,
+    })
 }))
-
-
 
 
 //CORS middleware
