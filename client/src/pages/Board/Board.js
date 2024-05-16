@@ -148,17 +148,22 @@ const Board = () => {
                                     enctype="multipart/form-data"
                                     onSubmit={uploadImage}
                                 >
-                                    <label 
-                                        htmlFor='boardImage'
-                                        className="block text-m font-medium leading-6 text-gray-900"
-                                    >
-                                    </label>
-                                    <input type="file" id="boardImage" name="boardImage" className="rounded-md border-0 p-2 text-white focus:ring-2 focus:ring-inset focus:ring-orange sm:text-sm sm:leading-6 self-center justify-center" />
-                                    <button type="submit">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 text-white self-center justify-center">
-                                            <path strokeLinecap="round" strokeLinejoin="round" d="M9 8.25H7.5a2.25 2.25 0 0 0-2.25 2.25v9a2.25 2.25 0 0 0 2.25 2.25h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25H15m0-3-3-3m0 0-3 3m3-3V15" />
-                                        </svg>
-                                    </button>
+                                    <div className='mt-5 flex flex-row items-center justify-center'>
+                                        <label 
+                                            htmlFor='boardImage'
+                                            for="boardImage"
+                                            className="block text-m font-medium leading-6 text-gray-900"
+                                        >
+                                        </label>
+                                        <input type="file" id="boardImage" name="boardImage" className="flex w-full justify-center file:rounded-md rounded-md file:bg-white file:hover:bg-opacity-90 file:px-3 file:py-1 file:text-sm file:font-semibold file:leading-6 text-white file:shadow-sm file:focus-visible:outline file:focus-visible:outline-2 file:focus-visible:outline-offset-2 file:focus-visible:outline-indigo-600" /> 
+                                        <button
+                                            type="submit"
+                                        >
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 text-white self-center justify-center">
+                                                <path strokeLinecap="round" strokeLinejoin="round" d="M9 8.25H7.5a2.25 2.25 0 0 0-2.25 2.25v9a2.25 2.25 0 0 0 2.25 2.25h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25H15m0-3-3-3m0 0-3 3m3-3V15" />
+                                            </svg>
+                                        </button>
+                                    </div>
                                 </form>
                             </div>
                             <div>

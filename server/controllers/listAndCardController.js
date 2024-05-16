@@ -13,11 +13,39 @@ async function createList(boardId, listTitle) {
     try {
         let list = await List.create(newList)
         if (list) {
-            console.log(list)
             board.lists.push(list)
             board.save()
             return list
         } 
+    } catch (error) {
+        return error
+    }
+}
+
+async function createCard(list, title) {
+    let newCard = {
+        list: list, 
+        title: title,
+    }
+    try {
+        let card = await Card.create(newCard)
+        if (card) {
+            return card
+        }
+    } catch (error) {
+        return error
+    }
+}
+
+async function getCards(id) {
+    try {
+        let cards = await Card.find({list: id})
+        if (cards) {
+            return cards
+        } 
+        else {
+            return {error: "Trouble loading cards, try reloading the page"}
+        }
     } catch (error) {
         return error
     }
@@ -41,5 +69,7 @@ async function getBoardLists(boardId) {
 
 module.exports = {
     createList,
-    getBoardLists
+    getBoardLists, 
+    createCard,
+    getCards
 }

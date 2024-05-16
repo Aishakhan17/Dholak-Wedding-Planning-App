@@ -3,6 +3,9 @@ const Schema = mongoose
 
 
 const CardSchema = new mongoose.Schema({
+    title: {
+        type: String
+    },
     list: {
         type: Schema.Types.ObjectId,
         ref: "List"

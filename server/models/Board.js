@@ -46,4 +46,6 @@ const BoardSchema = new mongoose.Schema({
     }
 })
 
+// BoardSchema.virtual("list")
+
 module.exports = mongoose.model("Board", BoardSchema)

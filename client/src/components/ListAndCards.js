@@ -1,9 +1,16 @@
 import axios from 'axios'
-import {useEffect, useState} from 'react'
+import {useEffect, useState, Fragment} from 'react'
+import List from './List';
+import Loading from './Loading';
+
+function classNames(...classes) {
+  return classes.filter(Boolean).join(' ')
+}
 
 const ListAndCards = ({boardId}) => {
     const [lists, setLists] = useState([])
     let [active, setActive] = useState(false)
+    // const contentStyle = {marginLeft: "auto", marginRight: "auto", width: "40%", minWidth: "content", height: "content", minHeight: "20%"}
     
     async function createList(event) {
         event.preventDefault()
@@ -21,6 +28,7 @@ const ListAndCards = ({boardId}) => {
         updatedLists.then((updatedLists) => setLists(updatedLists.data))
         updatedLists.then(setActive((current) => !current))
     }
+
 
     useEffect(() => {
         let isCancelled = false
@@ -57,32 +65,12 @@ const ListAndCards = ({boardId}) => {
     async function handleBlur() {
         setActive((current) => !current)
     }
+
+
+   
     return (
-        <div className='flex flex-row flex-wrap justify-start'> {/**className="flex flex-row flex-wrap justify-start" */}
-            {lists.length > 0 
-                ? <div className='flex flex-row flex-wrap justify-between'>
-                    {Object.keys(lists).map((i) => {
-                        return (
-                            <div className='mt-5 h-fit w-64 min-w-48 bg-card bg-opacity-80 rounded-md justify-center'>
-                                <div className="flex flex-row justify-between p-1">
-                                    <h4 className='text-center text-xl font-bold leading-9 tracking-tight text-white self-center p-1'>{lists[i].title}</h4>
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 text-white">
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 1 1-3 0m3 0a1.5 1.5 0 1 0-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-9.75 0h9.75" />
-                                    </svg>
-                                </div>
-                                <div className='w-full flex flex-row justify-evenly p-2'>
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 text-white self-center justify-center">
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                                    </svg>
-                                    <button className='text-white text-center justify-center self-center'>Add new card</button>
-                                </div>
-                            </div>
-                        )
-                    })}
-                    </div>
-                : <div></div>
-            }
-            <div className='mt-5 h-fit w-64 min-w-48 bg-card bg-opacity-80 rounded-md'>
+        <div className='flex flex-col'>
+            <div className='relative self-center justify-center mt-5 h-fit w-64 min-w-48 bg-card bg-opacity-80 rounded-md'>
                     {!active 
                         ?   <div className='w-full flex flex-row justify-evenly p-2'>
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 text-white self-center justify-center">
@@ -108,6 +96,20 @@ const ListAndCards = ({boardId}) => {
                             </div>
                     }
                 </div>
+            <div className=' mt-2'> 
+                {lists.length > 0 
+                    ? <div className='flex flex-row flex-wrap justify-center'>
+                        {Object.keys(lists).map((i, j) => {
+                            let title = lists[i].title
+                            let id = lists[i]._id
+                            return (
+                                <List title={title} id={id}/>
+                            )
+                        })}
+                        </div>
+                    : <div>No Lists to Show</div>
+                }
+            </div>
         </div>
     )
 }

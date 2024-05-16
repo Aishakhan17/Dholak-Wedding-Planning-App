@@ -5,7 +5,8 @@ const User = require("../models/User")
 const Notifications = require("../models/Notifications")
 
 router.post("/add-members", async (req, res) => {
-    const board = await Board.findById(req.body.boardId.boardId)
+    console.log("add members req", req.body)
+    const board = await Board.findById(req.body.boardId)
     const user = await User.findById(req.body.id)  
 
     if (board) {
