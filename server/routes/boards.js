@@ -46,6 +46,12 @@ router.post("/board", async (req, res) => {
     return res.json(boardData)
 })
 
+router.post("/board-images", async (req, res) => {
+    console.log("req.body from board-images", req.body)
+    let result = await boardFunctions.getBoardImages(req.body.id)
+    return res.json(result)
+})
+
 router.post("/get-public-boards", async (req, res) => {
     const id = req.body.id
     const publicBoardData = await boardFunctions.getPublicBoardData(id)
@@ -54,11 +60,15 @@ router.post("/get-public-boards", async (req, res) => {
 
 
 router.post("/add-image", upload.single("boardImage"), async (req, res, next) => {
-    let image = {
-        data: fs.readFileSync(path.join(__dirname + "/../uploads/" + req.file.filename)),
-        contentType: "image/png/jpg/jpeg"
+    let boardId = req.body.boardId
+    let newImage = {
+        board: boardId,
+        image: {
+            data: fs.readFileSync(path.join(__dirname + "/../uploads/" + req.file.filename)),
+            contentType: "image/png/jpg/jpeg"
+        }
     }
-    let upload = await boardFunctions.addImages(req.body.boardId, image)
+    let upload = await boardFunctions.addImages(boardId, newImage)
     return res.json(upload)
 })
 

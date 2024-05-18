@@ -92,7 +92,7 @@ router.get("/logout", async (req, res) => {
                 return res.json({error: "trouble deleting"})
             }
             else {
-                console.log("After", req.session, req.sessionStore)
+                // console.log("After", req.session, req.sessionStore)
                 return res.json({logout: true})
             }
         })

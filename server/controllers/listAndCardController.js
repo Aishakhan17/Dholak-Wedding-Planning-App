@@ -9,12 +9,9 @@ async function createList(boardId, listTitle) {
         board: boardId,
         title: listTitle
     }
-    let board = await Board.findById(boardId)
     try {
         let list = await List.create(newList)
         if (list) {
-            board.lists.push(list)
-            board.save()
             return list
         } 
     } catch (error) {
@@ -53,16 +50,24 @@ async function getCards(id) {
 
 async function getBoardLists(boardId) {
     try {
-        let board = await Board.findById(boardId).populate({
-            path: "lists",
-            model: "List"
-        })
-
-        if (board) {
-            return board.lists
+        let lists = await List.find({board: boardId})
+        if (lists) {
+            return lists
         }
     } catch (error) {
         
+    }
+}
+
+async function deleteList(listId, boardId) {
+    try {
+        let list = await List.findByIdAndDelete(listId) 
+        if (list) {
+            let lists = await List.find({board: boardId})
+            return lists
+        }
+    } catch (error) {
+        return error
     }
 }
 
@@ -71,5 +76,6 @@ module.exports = {
     createList,
     getBoardLists, 
     createCard,
-    getCards
+    getCards,
+    deleteList
 }

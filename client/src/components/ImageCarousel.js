@@ -27,7 +27,7 @@ const ImageCarousel = ({images}) => {
 
     if (images.length > 0) {
         return (
-            <div className='mt-5 bg-gradient-to-r from-foreground to-black'>
+            <div className='mt-5 bg-gradient-to-r from-foreground to-black p-2'>
                 <Carousel
                     swipeable={true}
                     draggable={false}
@@ -51,7 +51,7 @@ const ImageCarousel = ({images}) => {
                     >
                         {
                             Object.keys(images).map((i, j) => {
-                                let image = Buffer.from(images[i].data.data, "binary").toString("base64")
+                                let image = Buffer.from(images[i].image.data, "binary").toString("base64")
                                 return (
                                     <div key={j} className='mt-5 h-4/5 w-11/12 min-w-11/12 max-w-11/12'>
                                         <img className="h-full rounded-lg hover:h-auto" src={"data:image/jpg;base64,"+image}/>
@@ -66,14 +66,38 @@ const ImageCarousel = ({images}) => {
 
     else {
         return (
-            <div className='flex flex-row'>
-                {Object.keys(pictures).map((i) => {
-                    return (
-                        <div className='bg-foreground bg-opacity-80 p-5 rounded-lg'>
-                            <img src={pictures[i]}/>
-                        </div>
-                )
-                })}
+            <div className='mt-5'>
+                <Carousel
+                    swipeable={true}
+                    draggable={false}
+                    showDots={true}
+                    responsive={responsive}
+                    // ssr={true} // means to render carousel on server-side.
+                    infinite={true}
+                    centerMode={true}
+                    // autoPlay={deviceType !== "mobile" ? true : false}
+                    focusOnSelect={true}
+                    autoPlaySpeed={1000}
+                    keyBoardControl={true}
+                    customTransition="all .5"
+                    transitionDuration={500}
+                    containerClass="carousel-container"
+                    removeArrowOnDeviceType={["tablet", "mobile"]}
+                    dotListClass="custom-dot-list-style"
+                    // deviceType={deviceType}
+                    // dotListClass="custom-dot-list-style"
+                    sliderClass="slider-class"
+                    itemClass="carousel-item"
+                    >
+                        {Object.keys(pictures).map((i,j) => {
+                            return (
+                                <div key={j} className='mt-5 h-3/5 w-11/12 min-w-11/12 max-w-11/12'>
+                                    <img className="h-full w-auto rounded-lg" src={pictures[i]}/>
+                                </div>
+                        )
+                        })}
+                </Carousel>
+                {/* <h1 className="p-10 text-center text-2xl font-bold leading-9 tracking-tight text-white">This board looks dry as hell!</h1> */}
             </div>
         )
     }

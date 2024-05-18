@@ -1,5 +1,6 @@
 const Board = require("../models/Board")
 const User = require("../models/User")
+const Image = require("../models/Images")
 const mongoose = require("mongoose")
 
 
@@ -7,9 +8,9 @@ async function createBoard(newBoard) {
     try {
         let board = await Board.create(newBoard)
         if (board) {
-            let user = await User.findById(newBoard.owner)
-            user.boards.push(board)
-            user.save()
+            // let user = await User.findById(newBoard.owner)
+            // user.boards.push(board)
+            // user.save()
             return board
         } 
         else {
@@ -23,14 +24,9 @@ async function createBoard(newBoard) {
 async function getUserBoards(data) {
     try {
         const id = data.user.data.id
-        let owner = await User.findById(id).populate({
-            path: "boards",
-            model: "Board",
-        }).exec()
-        
+        let boards = await Board.find({owner: id})
 
-        if (owner) {
-            let boards = owner.boards
+        if (boards) {
             return boards
         } 
         else {
@@ -49,7 +45,6 @@ async function getBoardData(id) {
         model: "User",
         select: "firstName lastName _id"
         })
-        .populate("images")
         .exec()
         if (data) {
             return data
@@ -59,6 +54,17 @@ async function getBoardData(id) {
         }
     } catch (error) {
         return error    
+    }
+}
+
+async function getBoardImages(id) {
+    try {
+        let images = await Image.find({board: id})
+        if (images) {
+            return images
+        }
+    } catch (error) {
+        return error
     }
 }
 
@@ -81,13 +87,13 @@ async function getPublicBoardData(id) {
     }
 }
 
-async function addImages(id, image) {
+async function addImages(boardId, newImage) {
     try {
-        const board = await Board.findById(id)
-        if (board) {
-            board.images.push(image)
-            board.save()
-            return board.images
+        let image = await Image.create(newImage)
+        console.log("created", image)
+        if (image) {
+            let boardImages = await Image.find({board: boardId})
+            return boardImages
         }
         else {
             return {error: "There was an issue uploading the picture, try again"}
@@ -101,6 +107,7 @@ module.exports = {
     createBoard,
     getUserBoards,
     getBoardData, 
+    getBoardImages,
     getPublicBoardData,
     addImages
 }

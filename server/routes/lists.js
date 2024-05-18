@@ -18,5 +18,14 @@ router.post("/get-lists", async (req, res) => {
     return res.json(result)
 })
 
+router.post("/delete-list", async (req, res) => {
+    try {
+        const result = await listFunctions.deleteList(req.body.id, req.body.boardId)
+        return res.json(result)
+    } catch (error) {
+        return error
+    }   
+})
+
 
 module.exports = router

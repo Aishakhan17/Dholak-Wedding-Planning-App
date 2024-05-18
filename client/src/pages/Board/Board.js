@@ -21,6 +21,7 @@ const Board = () => {
     let [participants, setParticipants] = useState([])
     let [owner, setOwner] = useState("")
     let [isLoading, setIsLoading] = useState(false)
+    let [loading, setLoading] = useState(false)
     const {user} = useUpdate()
 
 
@@ -64,11 +65,9 @@ const Board = () => {
                 setTitle(result.data.title)
                 setDescription(result.data.description)
                 setCover(Buffer.from(result.data.cover.data.data, "binary").toString("base64"))
-                setImages(result.data.images)
                 setParticipants(result.data.participants)
                 setOwner(result.data.owner)
             })
-            // result.then((result) => console.log("result", result.data))
         }
         return () => {
             isCancelled = true
@@ -87,6 +86,35 @@ const Board = () => {
             return boardData
         }
     }
+
+
+    async function fetchBoardImages() {
+        setLoading((current) => !current)
+        const boardImages = await axios.post(
+            `${process.env.REACT_APP_API_URL}/boards/board-images`, {
+                id
+            }
+        )
+
+        if (boardImages.status === 200) {
+            setLoading((current) => !current)
+            return boardImages
+        }
+    }
+
+    useEffect(() => {
+        let isCancelled = false
+        if (!isCancelled) {
+            const result = fetchBoardImages()
+            result.then((result) => console.log("image result", result))
+            result.then((result) => {
+                setImages(result.data)
+            })
+        }
+        return () => {
+            isCancelled = true
+        }
+        }, [])
 
     async function uploadImage(event) {
         event.preventDefault()
@@ -107,7 +135,7 @@ const Board = () => {
                 },
             }
         )
-
+        console.log("uploadStatus", uploadStatus.data)
         if (uploadStatus.data.error) {
             setErrorMessage(uploadStatus.data.error)
         }
@@ -115,6 +143,7 @@ const Board = () => {
             updateImages(uploadStatus.data)
         }   
     }
+
     console.log("images", images)
     if (isLoading) {
         return (
@@ -173,12 +202,12 @@ const Board = () => {
                         </div>
                         
                     </div>
-                : <div>
+                : <div className='mt-10 bg-gradient-to-r from-foreground to-black p-2'>
                     <h4 className='mt-10 text-center text-xl font-bold leading-9 tracking-tight text-white self-center justify-center'>{title}</h4>
                     {description &&
-                        <p className='mt-10 text-center text-xl font-bold leading-9 tracking-tight text-white self-center justify-center'>{description}</p>
+                        <p className='mt-5 text-center text-sm font-bold leading-9 tracking-tight text-white self-center justify-center'>Description: {description}</p>
                     }
-                    <div className='mt-14 place-items-center'>
+                    <div className='mt-14 justify-center'>
                         <ImageCarousel images={images}/>
                     </div>
                 </div>

@@ -17,7 +17,6 @@ const AddMembers = ({boardId, participants, participantsChange}) => {
         setQuery(name)
         if (name.length > 0) {
             let searchResult = userList(name)
-            // searchResult.then((searchResult) => console.log("searchResult", searchResult))
             searchResult.then((searchResult) => setUsers(searchResult.data))
         }
         else if (name.length <= 0) {
@@ -47,9 +46,6 @@ const AddMembers = ({boardId, participants, participantsChange}) => {
         else {
             setErrorMessage(updatedParticipants.data.error)
         }
-        // .then((updatedParticipants) => participantsChange(updatedParticipants.data))
-        // .then((updatedParticipants) => console.log("updatedParticipants", updatedParticipants))
-        // return updatedParticipants
     }
     async function removeMember(id) {
         console.log("removed")

@@ -20,14 +20,10 @@ const BoardSchema = new mongoose.Schema({
         data: Buffer,
         contentType: String,
     },
-    images: [{
-        data: Buffer,
-        contentType: String
-    }],
-    lists: [{
-        type: Schema.Types.ObjectId,
-        ref: "List" 
-    }],
+    // images: [{
+    //     data: Buffer,
+    //     contentType: String
+    // }],
     participants: [{
         type: Schema.Types.ObjectId,
         ref: "User"
@@ -44,8 +40,21 @@ const BoardSchema = new mongoose.Schema({
         type: Boolean, 
         required: false
     }
+}, {
+        toJSON: { virtuals: true },
+        toObject: { virtuals: true },
+    })
+
+BoardSchema.virtual("lists", {
+    ref: "List",
+    localField: "_id",
+    foreignField: "board"
 })
 
-// BoardSchema.virtual("list")
+BoardSchema.virtual("images", {
+    ref: "Image",
+    localField: "_id",
+    foreignField: "board"
+})
 
 module.exports = mongoose.model("Board", BoardSchema)

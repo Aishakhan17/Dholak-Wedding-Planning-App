@@ -10,6 +10,7 @@ function classNames(...classes) {
 const ListAndCards = ({boardId}) => {
     const [lists, setLists] = useState([])
     let [active, setActive] = useState(false)
+    let [errorMessage, setErrorMessage] = useState("")
     // const contentStyle = {marginLeft: "auto", marginRight: "auto", width: "40%", minWidth: "content", height: "content", minHeight: "20%"}
     
     async function createList(event) {
@@ -55,12 +56,19 @@ const ListAndCards = ({boardId}) => {
                 }
             }
         )
-        console.log("boardLists", boardLists)
         if (boardLists.status === 200) {
             return boardLists
         }
     }
 
+
+    async function listChange(updatedBoardLists) {
+        setLists(updatedBoardLists)
+    }
+
+    async function errorMessageUpdate(message) {
+        setErrorMessage(message)
+    }
 
     async function handleBlur() {
         setActive((current) => !current)
@@ -91,23 +99,30 @@ const ListAndCards = ({boardId}) => {
                                     <input type="text" className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-400 sm:text-sm sm:leading-6" placeholder='Enter list title. Example pending'
                                     // onBlur={handleBlur}    
                                     />
-                                    <button type="submit" className='mt-2 text-foreground bg-orange hover:bg-opacity-90 w-2/5 p-1 text-center justify-center self-center rounded-md'>Add List</button>
+                                    <button type="submit" className='mt-2 text-white bg-cardTile hover:bg-opacity-90 w-2/5 p-1 text-center justify-center self-center rounded-md'>Add List</button>
                                 </form>
                             </div>
                     }
                 </div>
             <div className=' mt-2'> 
+                <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+                    {errorMessage && 
+                        <h3 className="mt-2 text-xl font-semi-bold leading-9 tracking-tight text-gray-800">{errorMessage}</h3>
+                    }
+                </div>
                 {lists.length > 0 
-                    ? <div className='flex flex-row flex-wrap justify-center'>
-                        {Object.keys(lists).map((i, j) => {
-                            let title = lists[i].title
-                            let id = lists[i]._id
-                            return (
-                                <List title={title} id={id}/>
-                            )
-                        })}
+                    ?   <div className='flex flex-row flex-wrap justify-center'>
+                            {Object.keys(lists).map((i, j) => {
+                                let listTitle = lists[i].title
+                                let id = lists[i]._id
+                                return (
+                                    <List listTitle={listTitle} id={id} boardId={boardId} listChange={listChange} errorMessageUpdate={errorMessageUpdate}/>
+                                )
+                            })}
                         </div>
-                    : <div>No Lists to Show</div>
+                    :   <div>
+                            <p className='text-center text-xl font-bold leading-9 tracking-tight text-white self-center p-1'>No Lists to Show</p>
+                        </div>
                 }
             </div>
         </div>

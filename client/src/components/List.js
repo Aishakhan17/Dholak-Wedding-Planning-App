@@ -10,10 +10,11 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-const List = ({title, id}) => {
+const List = ({listTitle, id, boardId, listChange, errorMessageUpdate}) => {
     let [active, setActive] = useState(false)
     let [cards, setCards] =  useState([])
-    const contentStyle = {marginLeft: "auto", marginRight: "auto", width: "40%", minWidth: "content", height: "content", minHeight: "40%"}
+    let [errorMessage, setErrorMessage] = useState("")
+    const contentStyle = {marginLeft: "auto", marginRight: "auto", width: "40%", minWidth: "content", height: "content", minHeight: "40%", background: "#262331"}
 
     async function createCard(event) {
         event.preventDefault()
@@ -42,6 +43,26 @@ const List = ({title, id}) => {
         return listCards
     }
 
+    async function deleteList() {
+        let deleted = await axios.post(
+            `${process.env.REACT_APP_API_URL}/lists/delete-list`, {
+                id, boardId
+            },
+            {crossdomain: true},
+            {headers: {
+                "Content-Type": "application/json"
+            }},
+        )
+        
+        if (!(deleted.data.error)) {
+            listChange(deleted.data)
+        }
+        else {
+            errorMessageUpdate(deleted.data.error)
+        }
+
+    }
+
     useEffect(() => {
         let isCancelled = false
         if (!isCancelled) {
@@ -51,7 +72,6 @@ const List = ({title, id}) => {
                     setCards(result.data)
                 }
             })
-            result.then((result) => console.log("result", result))
         }
         return () => {
             isCancelled = true
@@ -62,12 +82,11 @@ const List = ({title, id}) => {
         setActive((current) => !current)
     }
 
-    console.log("cards", cards)
 
     return (
         <div className='mt-5 ml-5 h-fit min-h-content w-64 min-w-48 bg-card bg-opacity-80 rounded-md justify-center'>
             <div className="flex flex-row justify-between p-1">
-                <h4 className='text-center text-xl font-bold leading-9 tracking-tight text-white self-center p-1'>{title}</h4>
+                <h4 className='text-center text-xl font-bold leading-9 tracking-tight text-white self-center p-1'>{listTitle}</h4>
                     <Menu as="div" className="relative inline-block text-left">
                         <div>
                             <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm  hover:bg-gray-50">
@@ -116,15 +135,19 @@ const List = ({title, id}) => {
                                 </Menu.Item>
                                 <Menu.Item>
                                 {({ active }) => (
-                                    <a
-                                    href="#"
-                                    className={classNames(
-                                        active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                                        'block px-4 py-2 text-sm'
-                                    )}
+                                    <button
+                                        onClick={deleteList}
                                     >
-                                    Delete List
-                                    </a>
+                                        <a
+                                        href="#"
+                                        className={classNames(
+                                            active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                                            'block px-4 py-2 text-sm'
+                                        )}
+                                        >
+                                        Delete List
+                                        </a>
+                                    </button>
                                 )}
                                 </Menu.Item>
                                 <form method="POST" action="#">
@@ -136,21 +159,26 @@ const List = ({title, id}) => {
             </div>
             {
                 cards.length > 0 
-                    ? <div>
+                    ? <div className='p-2'>
                         {Object.keys(cards).map((i,j) => {
-                            let title = cards[i].title
+                            let cardTitle = cards[i].title
                             return (
-                                <div className='bg-white rounded-lg hover:bg-opacity-80'>
                                 <Popup
                                     {...{contentStyle}}
                                     position={"center-center"}
-                                    trigger={<p className='mt-2 text-center text-sm font-bold leading-9 tracking-tight text-foreground self-center justify-center'>{title}</p>}
+                                    trigger={
+                                        <div className='bg-cardTile mt-2 rounded-lg hover:bg-opacity-80 flex flex-row justify-between p-2'>
+                                            <p className='text-center text-sm font-bold leading-9 tracking-tight text-white self-center justify-center'>{cardTitle}</p> 
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 self-center justify-center text-white">
+                                                <path strokeLinecap="round" strokeLinejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
+                                            </svg>
+                                        </div>
+                                }
                                     modal 
                                     nested
                                 >
-                                    <Card title={title}/>
+                                    <Card cardTitle={cardTitle}/>
                                 </Popup>
-                                </div>  
                             )
                         })}
                     </div>
@@ -177,10 +205,9 @@ const List = ({title, id}) => {
                                     >
                                         Add Card Title
                                     </label>
-                                    <input type="text" className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-400 sm:text-sm sm:leading-6" placeholder='Enter list title. Example pending'
-                                    // onBlur={handleBlur}    
+                                    <input type="text" className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-400 sm:text-sm sm:leading-6" placeholder='Enter list title. Example pending' 
                                     />
-                                    <button type="submit" className='mt-2 text-foreground bg-orange hover:bg-opacity-90 w-2/5 p-1 text-center justify-center self-center rounded-md'>Create</button>
+                                    <button type="submit" className='mt-2 text-white bg-cardTile hover:bg-opacity-90 w-2/5 p-1 text-center justify-center self-center rounded-md'>Create</button>
                                 </form>
                             </div> 
                 }

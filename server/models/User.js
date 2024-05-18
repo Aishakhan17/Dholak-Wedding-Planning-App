@@ -39,10 +39,18 @@ const UserSchema = new mongoose.Schema({
         type: Date,
         default: Date.now()
     },
-    boards: [{
-        type: Schema.Types.ObjectId,
-        ref: "Board"
-    }],
+    // boards: [{
+    //     type: Schema.Types.ObjectId,
+    //     ref: "Board"
+    // }],
 })
+
+UserSchema.virtual("boards", {
+    ref: "Board",
+    localField: "_id",
+    foreignField: "owner",
+})
+
+
 
 module.exports = mongoose.model("User", UserSchema)

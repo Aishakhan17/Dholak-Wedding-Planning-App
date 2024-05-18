@@ -39,7 +39,6 @@ const BoardSideNav = ({boardId, title, participants, description, cover, partici
                 </div>
                 <div className='ml-2 mb-2 p-1 justify-start'>
                     {Object.keys(participants).map((i, j) => {
-                        console.log("participants", participants[i])
                         return (
                             <div key={j} className='mt-1'>
                                 <img/>

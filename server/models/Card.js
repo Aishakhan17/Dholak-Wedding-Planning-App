@@ -17,6 +17,15 @@ const CardSchema = new mongoose.Schema({
     description: {
         type: String
     }, 
+}, {
+        toJSON: { virtuals: true },
+        toObject: { virtuals: true },
+})
+
+CardSchema.virtual("comments", {
+    ref: "Comment",
+    localField: "_id",
+    foreignField: "card"
 })
 
 module.exports = mongoose.model("Card", CardSchema)
