@@ -35,3 +35,24 @@
 	border-radius: 18px;
 	border: 1px solid #cfcece;
 }
+
+.carousel-container {
+	height: 30rem;
+}
+
+.carousel-item {
+	padding: 2px;
+	align-self: center;
+	justify-items: center;
+	justify-self: center;
+	height: 100%;
+}
+
+.custom-dot-list-style {
+	font-size: large;
+}
+
+.slider-class {
+	place-items: center center;
+	height: 90%;
+}
