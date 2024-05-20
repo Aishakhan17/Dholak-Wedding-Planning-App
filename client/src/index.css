@@ -1,6 +1,24 @@
-@tailwind base;
+/* @tailwind base;
 @tailwind components;
-@tailwind utilities;
+@tailwind utilities; */
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+/* start */
+html {
+	-webkit-text-size-adjust: 100%;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	box-sizing: border-box;
+	line-height: 1.15;
+	font-size: 85%;
+}
+*,
+*::before,
+*::after {
+	box-sizing: inherit;
+}
 
 .modal {
 	font-size: 12px;
@@ -36,23 +54,21 @@
 	border: 1px solid #cfcece;
 }
 
-.carousel-container {
-	height: 30rem;
-}
+/* .carousel-container {
+	height: 32rem;
+	display: flex;
+	position: relative;
+} */
 
-.carousel-item {
+/* .carousel-item {
+	margin-top: auto;
+	margin-bottom: auto;
+	background-color: pink;
 	padding: 2px;
-	align-self: center;
-	justify-items: center;
-	justify-self: center;
 	height: 100%;
-}
-
-.custom-dot-list-style {
-	font-size: large;
-}
-
+} */
+/* 
 .slider-class {
-	place-items: center center;
+	background-color: inherit;
 	height: 90%;
-}
+} */

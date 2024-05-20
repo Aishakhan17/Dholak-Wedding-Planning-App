@@ -1,4 +1,4 @@
-/** @type {import('tailwindcss').Config} */
+{import('tailwindcss').Config} 
 
 import bg from "./src/assets/bg.jpg"
 module.exports = {
@@ -26,7 +26,7 @@ module.exports = {
         aspectRatio: false,
     },
   plugins: [
-    require('@tailwindcss/aspect-ratio')
+    require('@tailwindcss/aspect-ratio'),
   ],
     }
 }
