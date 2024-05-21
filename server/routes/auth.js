@@ -79,7 +79,6 @@ router.post("/signup", async (req, res) => {
 
     function createSession(req, res, manualSignupDetails) {
         req.session.user = manualSignupDetails
-        session.save()
     }
 })
 
