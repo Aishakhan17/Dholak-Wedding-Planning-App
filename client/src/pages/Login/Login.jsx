@@ -52,7 +52,6 @@ const Login = () => {
 	const login = useGoogleLogin({
 		flow: "auth-code",
 		onSuccess: async (codeResponse) => {
-			console.log("attempting to login");
 			setIsLoading((current) => !current);
 			const userVerified = await axios.post(
 				`${process.env.REACT_APP_API_URL}/auth/google`,
@@ -85,7 +84,7 @@ const Login = () => {
 		return <Loading />;
 	}
 	return (
-		<div className="mt-24 flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+		<div className="bg-opacity-80 mt-24 flex flex-col h-fit min-h-full justify-center px-6 py-12 lg:px-8">
 			<script
 				src="https://accounts.google.com/gsi/client"
 				async></script>
@@ -158,7 +157,7 @@ const Login = () => {
 							<div>
 								<button
 									type="submit"
-									className="flex w-full justify-center rounded-md bg-orange hover:bg-opacity-90 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+									className="flex w-full justify-center rounded-md bg-orange hover:bg-card px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
 									Sign in
 								</button>
 							</div>

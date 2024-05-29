@@ -7,15 +7,15 @@ module.exports = {
   ],
   theme: {
     colors: {
-        foreground: "#121212",
+        foreground: "#080401",
         background: "#0c0a09",
-        white: "#FFF7ED",
-        orange: "#f97316",
-        card: "#262331",
+        white: "#EEEEF0",
+        orange: "#091f2A",
+        card: "#091f2A",
         gradient1: "#1E293B",
         gradient2: "#334155",
         black: "#000000",
-        cardTile: "#334155",
+        cardTile: "#54798E",
     },
     fontFamily: {
         "sans": "Georgia",

@@ -28,7 +28,7 @@ const Profile = () => {
 	return (
 		<div className="h-full min-h-screen mx-auto w-5/6">
 			<Navbar />
-			<div className="mt-16 grid grid-cols-[320px_minmax(400px,_2fr)] gap-x-5 gap-y-10">
+			<div className="mt-24 grid grid-cols-[320px_minmax(400px,_2fr)] gap-x-5 gap-y-10">
 				<div className="bg-foreground bg-opacity-80 h-fit min-h-screen flex flex-col mx-auto w-full rounded-md">
 					<div className="mt-16 justify-center self-center">
 						{user.image ? (
@@ -39,7 +39,7 @@ const Profile = () => {
 						) : (
 							<img
 								className="h-36 w-36 rounded-full"
-								src={noImg}
+								src={`https://ui-avatars.com/api/?name=${user.firstName}+${user.lastName}`}
 							/>
 						)}
 					</div>
@@ -51,9 +51,29 @@ const Profile = () => {
 							{user.email}
 						</p>
 					</div>
+					<div className="flex flex-row justify-start p-5 ml-3">
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							fill="none"
+							viewBox="0 0 24 24"
+							strokeWidth={1.5}
+							stroke="currentColor"
+							className="w-4 h-4 self-center justify-center text-white">
+							<path
+								strokeLinecap="round"
+								strokeLinejoin="round"
+								d="M12 4.5v15m7.5-7.5h-15"
+							/>
+						</svg>
+						<span>
+							<h4 className="ml-3 text-left text-sm font-bold leading-9 tracking-tight self-center justify-center text-white">
+								Add a new board
+							</h4>
+						</span>
+					</div>
 				</div>
 				<div className="h-fit min-h-screen">
-					{currentUser === user.id ? (
+					{currentUser === id ? (
 						<div>
 							<YourBoards />
 						</div>

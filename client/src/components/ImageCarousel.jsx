@@ -5,11 +5,12 @@ import Loading from "./Loading";
 
 const ImageCarousel = ({ images }) => {
 	const pictures = [
-		"https://i.pinimg.com/564x/71/df/e7/71dfe758b89347f8a6ac63eb878dd88f.jpg",
-		"https://i.pinimg.com/564x/40/d6/9f/40d69ff869ec10c298d7f35ff5fedf8b.jpg",
-		"https://i.pinimg.com/564x/6b/47/26/6b472651dc4b422d6c794df0c7c7acde.jpg",
-		"https://i.pinimg.com/736x/03/b8/44/03b8444021d91b41073cb14fd8ff934b.jpg",
-		"https://i.pinimg.com/564x/ef/45/b1/ef45b1d25ee0b1647993c21a9da64c62.jpg",
+		"https://i.pinimg.com/736x/fa/36/a7/fa36a79d487420d4a3bb623334b1a305.jpg",
+		"https://i.pinimg.com/originals/ad/ea/b1/adeab11a30cb6afb42ae87e31fa0a0eb.jpg",
+		"https://i.pinimg.com/originals/57/a8/fa/57a8fad4975df92eb6bd6f70d06b6dfc.jpg",
+		"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9dlWn1-GO3WFhKOYBM4oghDbUPPzBrZkKRvrPk-FlsKODNeOZ9RSs2nPBbROyOu3FUGc&usqp=CAU",
+		"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRB-XJBFJcz7B9znvQ5lbZaeCs3yBC6DQBWmGMiFA1uA77_oI4kVRCd1czvL2LSsK5-Dr4&usqp=CAU",
+		"https://i.pinimg.com/originals/32/0d/fa/320dfa98efded1f9371160f0cad0eebb.jpg",
 	];
 
 	const responsive = {
@@ -32,7 +33,7 @@ const ImageCarousel = ({ images }) => {
 
 	if (images.length > 0) {
 		return (
-			<div className="mt-5 bg-gradient-to-r from-foreground to-black p-2">
+			<div className="mt-5 p-2">
 				<Carousel
 					swipeable={true}
 					draggable={false}
@@ -73,7 +74,7 @@ const ImageCarousel = ({ images }) => {
 		);
 	} else {
 		return (
-			<div className="mt-5 bg-gradient-to-r from-foreground to-black p-2">
+			<div className="mt-5 p-2">
 				<Carousel
 					swipeable={true}
 					draggable={false}

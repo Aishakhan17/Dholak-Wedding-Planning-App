@@ -4,67 +4,55 @@ import BoardTile from "./BoardTile";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 import BoardForm from "./BoardForm";
-import axios from "axios";
-import Loading from "./Loading";
 import { Buffer } from "buffer";
 import noImg from "../assets/noImg.png";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
-const YourBoards = () => {
-	const [isLoading, setIsLoading] = useState(false);
-	const [boards, setBoards] = useState([]);
+const YourBoards = ({ boards, isLoading }) => {
 	const { user } = useUpdate();
 	const userId = user.data.id;
 	const userFirstName = user.data.firstName;
 	const userLastName = user.data.lastName;
 	let ownerImage;
+	const contentStyle = {
+		width: "33%",
+		// marginTop: "15rem",
+		marginLeft: "auto",
+		marginRight: "auto",
+		background: "#121212",
+	};
 
 	if (user.data.image) {
 		ownerImage = user.data.image;
 	} else {
 		ownerImage = noImg;
 	}
-
-	useEffect(() => {
-		let isCancelled = false;
-		if (!isCancelled) {
-			const result = fetchBoards();
-			result.then((result) => {
-				setBoards(result.data);
-			});
-		}
-		// console.log("boards", boards)
-		return () => {
-			isCancelled = true;
-		};
-	}, []);
-
-	async function fetchBoards() {
-		setIsLoading((current) => !current);
-		const userBoards = await axios.post(
-			`${process.env.REACT_APP_API_URL}/boards/get-boards`,
-			{
-				user,
-			},
-			{ crossdomain: true },
-			{
-				headers: {
-					"Content-Type": "application/json",
-				},
-			}
-		);
-		if (userBoards.status === 200) {
-			// console.log("userBoards", userBoards, typeof userBoards)
-			setIsLoading((current) => !current);
-			return userBoards;
-		}
-	}
-
+	console.log("isLoading", isLoading);
 	if (isLoading) {
-		return <Loading />;
+		return (
+			<div className="mt-10">
+				<SkeletonTheme
+					baseColor="#121212"
+					highlightColor="#091f2a"
+					width="100%"
+					height="30rem"
+					borderRadius="2%"
+					opacity="0.1">
+					<p>
+						<Skeleton />
+					</p>
+				</SkeletonTheme>
+			</div>
+
+			// <Loading />
+		);
 	}
 
 	return (
 		<div>
+			<h4 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-white">
+				Here are your boards
+			</h4>
 			<div>
 				<div className="flex flex-col">
 					<a className="self-center justify-center">
@@ -83,13 +71,7 @@ const YourBoards = () => {
 						</svg>
 					</a>
 					<Popup
-						contentStyle={{
-							width: "33%",
-							marginTop: "15rem",
-							marginLeft: "auto",
-							marginRight: "auto",
-							opacity: "97%",
-						}}
+						{...{ contentStyle }}
 						trigger={
 							<button className="mt-2 text-center text-xl font-bold leading-9 tracking-tight text-white hover:text-orange-400 self-center justify-center">
 								Create a new Board
@@ -100,9 +82,6 @@ const YourBoards = () => {
 					</Popup>
 				</div>
 			</div>
-			<h4 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-white">
-				Here are your boards, {user.data.firstName}
-			</h4>
 
 			<div className="mt-10 grid 2xl:grid-cols-5 xl:grid-cols-4 lg:grid-cols-3 px-10 md:grid-cols-2 place-items-center">
 				{Object.keys(boards).map((i, j) => {

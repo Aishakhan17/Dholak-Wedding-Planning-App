@@ -6,6 +6,7 @@ import Navbar from "../../components/Navbar";
 import { useUpdate } from "../../utils/Context";
 import axios from "axios";
 import { Buffer } from "buffer";
+import noImg from "../../assets/noImg.png";
 import ImageCarousel from "../../components/ImageCarousel";
 import ListAndCards from "../../components/ListAndCards";
 
@@ -108,7 +109,6 @@ const Board = () => {
 		let isCancelled = false;
 		if (!isCancelled) {
 			const result = fetchBoardImages();
-			result.then((result) => console.log("image result", result));
 			result.then((result) => {
 				setImages(result.data);
 			});
@@ -145,8 +145,7 @@ const Board = () => {
 			updateImages(uploadStatus.data);
 		}
 	}
-
-	console.log("images", images);
+	console.log("participants", participants);
 	if (isLoading) {
 		return <Loading />;
 	} else {
@@ -215,12 +214,49 @@ const Board = () => {
 									</div>
 								</form>
 							</div>
-							<div>
-								<p className="mt-10 text-center text-xl font-bold leading-9 tracking-tight text-white self-center justify-center">
-									Huddle Corner
-								</p>
+							<div className="grid grid-cols-[900px_minmax(300px,_0.5fr)] gap-x-5 gap-y-8">
+								<div>
+									<p className="mt-10 text-center text-xl font-bold leading-9 tracking-tight text-white self-center justify-center">
+										Huddle Corner
+									</p>
+									<ListAndCards boardId={id} />
+								</div>
+								<div className="">
+									<p className="mt-10 bg-card bg-opacity-90 text-center text-sm font-bold leading-9 tracking-tight text-white self-center justify-center rounded-md">
+										Members
+									</p>
+									<div className="mt-10 flex space-x-2 overflow-hidden">
+										{Object.keys(participants).map((i, j) => {
+											return (
+												<div
+													key={j}
+													className="mt-1">
+													<img />
+													<li className="flow-root ml-2 text-sm leading-9 tracking-tight text-white">
+														{participants[i].image ? (
+															<a
+																href={`/profile/${participants[i]._id}`}>
+																<img
+																	className="inline-block h-10 w-10 rounded-full ring-1 ring-white"
+																	src={`${user.image}`}
+																/>
+															</a>
+														) : (
+															<a
+																href={`/profile/${participants[i]._id}`}>
+																<img
+																	className="inline-block h-11 w-11 rounded-full ring-1 ring-white"
+																	src={`https://ui-avatars.com/api/?name=${participants[i].firstName}+${participants[i].lastName}`}
+																/>
+															</a>
+														)}
+													</li>
+												</div>
+											);
+										})}
+									</div>
+								</div>
 							</div>
-							<ListAndCards boardId={id} />
 						</div>
 					</div>
 				) : (

@@ -75,7 +75,6 @@ const Signup = () => {
 				},
 			}
 		);
-		console.log("signUpComplete", signUpComplete);
 		if ("error" in signUpComplete.data) {
 			setIsLoading((current) => !current);
 			setErrorMessage(signUpComplete.data.error);
@@ -110,11 +109,6 @@ const Signup = () => {
 					Create Account
 				</h2>
 			</div>
-			{/* <div className="mx-auto h-10 w-auto">
-                    {isLoading && 
-                        <Loading />
-                    }
-                </div> */}
 			<div>
 				{errorMessage && (
 					<h3 className="mt-10 text-center text-1xl font-semi-bold leading-9 tracking-tight text-white">
