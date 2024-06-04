@@ -35,7 +35,7 @@ const Landing = () => {
 								<h4 className="text-left text-xl font-bold leading-9 tracking-tight text-white">
 									Are you a professional planner, vendor or venue? Start here:
 								</h4>
-								<button className="mt-5 flex w-full justify-center rounded-md bg-orange hover:bg-opacity-90 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+								<button className="mt-5 flex w-full justify-center rounded-md bg-card hover:bg-cardTile px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
 									<a href="#">Create Business Account</a>
 								</button>
 							</div>
@@ -113,7 +113,7 @@ const Landing = () => {
 								<h4 className="text-left text-xl font-bold leading-9 tracking-tight text-white">
 									Do we have you sold?
 								</h4>
-								<button className="mt-5 flex w-full justify-center rounded-md bg-orange hover:bg-opacity-90 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+								<button className="mt-5 flex w-full justify-center rounded-md bg-card hover:bg-cardTile px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
 									<a href="/login">Let's get started!</a>
 								</button>
 							</div>
@@ -122,7 +122,7 @@ const Landing = () => {
 							<h4 className="mt-5 text-left text-2xl font-bold leading-9 tracking-tight text-white px-10">
 								Streamline your wedding planning with these unique tools
 							</h4>
-							<div className="grid grid-cols-2 grid-rows-2 gap-y-10 mt-10 p-10">
+							<div className="grid grid-cols-2 grid-rows-2 gap-y-10 gap-x-20 mt-10 p-10">
 								<div className="flex space-x-5">
 									<svg
 										xmlns="http://www.w3.org/2000/svg"

@@ -47,7 +47,6 @@ router.post("/board", async (req, res) => {
 })
 
 router.post("/board-images", async (req, res) => {
-    console.log("req.body from board-images", req.body)
     let result = await boardFunctions.getBoardImages(req.body.id)
     return res.json(result)
 })
@@ -72,5 +71,9 @@ router.post("/add-image", upload.single("boardImage"), async (req, res, next) =>
     return res.json(upload)
 })
 
+router.post("/update-description", async (req, res) => {
+    let update = await boardFunctions.updateBoardDescription(req.body.boardId, req.body.description)
+    return res.json(update)
+})
 
 module.exports = router

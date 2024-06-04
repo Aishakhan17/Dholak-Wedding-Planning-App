@@ -165,7 +165,7 @@ const Login = () => {
 						<div className="flex flex-col items-center mt-5">
 							<button
 								type="button"
-								className="flex w-full justify-center items-center rounded-md bg-transparent hover:text-orange px-3 py-1.5 text-sm font-semibold leading-6 text-white border-current shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+								className="flex w-full justify-center items-center rounded-md bg-transparent hover:text-orange hover:bg-white px-3 py-1.5 text-sm font-semibold leading-6 text-white border-current shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
 								onClick={() => login()}>
 								<svg
 									className="w-4 h-4 me-2"
@@ -188,7 +188,7 @@ const Login = () => {
 								Not a member?{" "}
 								<a
 									href="/signup"
-									className="font-semibold leading-6 text-white hover:text-orange">
+									className="font-semibold leading-6 text-white hover:text-cardTile">
 									Sign up
 								</a>
 							</p>

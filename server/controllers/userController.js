@@ -9,18 +9,17 @@ async function googleUserCheck(payload) {
             lastName: payload.family_name,
             userName: payload.name,
             email: payload.email,
-            image: payload.picture,
+            // image: payload.picture,
         }
     try {
         let user = await User.findOne({id: newUser.id})
         if (user) {
-            console.log("user found")
-            return {id:user._id, firstName: user.firstName, lastName: user.lastName, username: user.userName, image: user.image}
+            return {id:user._id, firstName: user.firstName, lastName: user.lastName, username: user.userName}
         }
         else {
             console.log("user not found, creating")
             let user = await User.create(newUser)
-            return {id:user._id, firstName: user.firstName, lastName: user.lastName, username: user.userName, image: user.image}
+            return {id:user._id, firstName: user.firstName, lastName: user.lastName, username: user.userName}
         }
     } catch (error) {
         console.error(error)   
@@ -38,7 +37,7 @@ async function manaulUserCheck(data) {
         let user = await User.findOne({email: newManualUser.email})
         if (user) {
             console.log("manual user found", user)
-            const match = await bcrypt.compare(newManualUser.password, user.password)
+            const match = bcrypt.compare(newManualUser.password, user.password)
             console.log("match", match)
             if (match) {
                 return ({id:user._id, firstName: user.firstName, lastName: user.lastName, username: user.userName, image: user.image})
@@ -69,7 +68,6 @@ async function newSignUp(data) {
     try {
         let user = await User.findOne({email: newUser.email})
         if (user) {
-            console.log("User already exists, login")
             return {error: "User already exists, please login"}
         }
         else {
@@ -81,10 +79,42 @@ async function newSignUp(data) {
         console.error("Something went wrong, try again later")   
     }
 }
+
+async function profilePictureUpdate(newData) {
+    try {
+        let user = await User.findById(newData.id)
+        if (user) {
+            user.image = newData.image
+            user.save()
+            return user.image
+        }
+        else {
+            return {error: "There was a problem uploading your picture, please try again in a bit"}
+        }
+    } catch (error) {
+        return {error: error}
+    }
+}
     
+
+async function getProfilePicture(userId) {
+    try {
+        let user = await User.findById(userId)
+        if (user) {
+            return user.image
+        }
+        else {
+            return {error: "Ran into trouble, try refreshing the page"}
+        }
+    } catch (error) {
+        return error
+    }
+}
 
 module.exports = {
     googleUserCheck, 
     manaulUserCheck,
-    newSignUp
+    newSignUp,
+    profilePictureUpdate, 
+    getProfilePicture
 }

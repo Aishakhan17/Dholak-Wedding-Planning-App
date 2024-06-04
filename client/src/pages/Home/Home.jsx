@@ -54,7 +54,8 @@ const Home = () => {
 	}
 	if (isLoading) {
 		return (
-			<div className="mt-24">
+			<div className="h-full min-h-screen mx-auto w-5/6">
+				<Navbar />
 				<Loading />
 			</div>
 		);
@@ -65,7 +66,23 @@ const Home = () => {
 				<Navbar />
 				<div className="grid grid-cols-[300px_minmax(400px,_1fr)_300px] gap-x-5 gap-y-10 mt-24 ">
 					<div className="bg-foreground bg-opacity-80 rounded-md h-fit min-h-full max-h-fit">
-						<div className="mb-2 p-5">
+						<div className="flex space-x-5 mt-10 px-5">
+							{user.data.image ? (
+								<img
+									className="h-10 w-10 rounded-full self-center justify-center"
+									src={user.data.image}
+								/>
+							) : (
+								<img
+									className="h-10 w-10 rounded-full self-center justify-center"
+									src={`https://ui-avatars.com/api/?name=${user.data.firstName}+${user.data.lastName}`}
+								/>
+							)}
+							<h4 className="text-left text-md font-bold leading-9 tracking-tight text-white self-center justify-center">
+								{user.data.firstName} {user.data.lastName}
+							</h4>
+						</div>
+						<div className="mt-10 px-5">
 							<Accordion
 								title="Boards"
 								data={boards}
@@ -106,20 +123,20 @@ const Home = () => {
 					<div>
 						<div className=" rounded-md h-fit min-h-screen">
 							<div className="">
-								<h4 className="p-10 text-center text-2xl font-bold leading-9 tracking-tight text-white">
-									Hello {user.data.firstName}
+								<h4 className="pt-2 text-center text-2xl font-bold leading-9 tracking-tight text-white">
+									Hello, {user.data.firstName}
 								</h4>
-								<h4 className="mt-5 text-center text-2xl font-bold leading-9 tracking-tight text-white">
-									Here's what's happened since you last checked in
-								</h4>
-								<div className="p-5 bg-background bg-opacity-5">
-									<OtherBoards />
-								</div>
 								<div>
 									<YourBoards
 										boards={boards}
 										isLoading={isLoading}
 									/>
+								</div>
+								<div className="p-5 bg-background bg-opacity-5">
+									<h4 className="mt-5 text-center text-md font-bold leading-9 tracking-tight text-white">
+										Other Boards
+									</h4>
+									<OtherBoards />
 								</div>
 							</div>
 						</div>

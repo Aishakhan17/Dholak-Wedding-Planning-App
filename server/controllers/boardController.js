@@ -8,9 +8,6 @@ async function createBoard(newBoard) {
     try {
         let board = await Board.create(newBoard)
         if (board) {
-            // let user = await User.findById(newBoard.owner)
-            // user.boards.push(board)
-            // user.save()
             return board
         } 
         else {
@@ -43,7 +40,7 @@ async function getBoardData(id) {
         const data = await Board.findById(id).populate({
         path: "participants",
         model: "User",
-        select: "firstName lastName _id"
+        select: "firstName lastName _id image"
         })
         .exec()
         if (data) {
@@ -103,11 +100,26 @@ async function addImages(boardId, newImage) {
     }
 }
 
+async function updateBoardDescription(boardId, description) {
+    try {
+        let board = await Board.findByIdAndUpdate(boardId, {"description": description})
+        if (board) {
+            return board.description
+        }
+        else {
+            return {error: "There was a problem updating description"}
+        }
+    } catch (error) {
+        return error        
+    }
+}
+
 module.exports = {
     createBoard,
     getUserBoards,
     getBoardData, 
     getBoardImages,
     getPublicBoardData,
-    addImages
+    addImages,
+    updateBoardDescription
 }

@@ -17,7 +17,7 @@ const BoardForm = () => {
 		let description = await event.target[1].value;
 		let cover = await event.target[2].files[0];
 		let owner = user.data.id;
-		console.log(title, description, cover, "owner", owner, privateBoard);
+		// console.log(title, description, cover, "owner", owner, privateBoard);
 
 		const myFormData = new FormData();
 
@@ -59,7 +59,7 @@ const BoardForm = () => {
 			<div className="self-start pl-3 sm:mx-auto sm:w-full sm:max-w-sm">
 				<a
 					className="block text-sm font-medium leading-6 text-gray-900"
-					href="/your-boards">
+					href="/home">
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						fill="none"
@@ -150,8 +150,8 @@ const BoardForm = () => {
 							<Switch
 								checked={enabled}
 								onChange={setEnabled}
-								className={`${enabled ? "bg-card" : "bg-white"}
-                                relative inline-flex h-[24px] w-[50px] shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2  focus-visible:ring-white/75`}>
+								className={`${enabled ? "bg-cardTile" : "bg-white"}
+                                relative inline-flex h-[24px] w-[48px] shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2  focus-visible:ring-white/75`}>
 								<span className="sr-only">Use setting</span>
 								<span
 									aria-hidden="true"

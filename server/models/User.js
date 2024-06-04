@@ -32,17 +32,13 @@ const UserSchema = new mongoose.Schema({
         required: false
     },
     image: {
-        type: String,
-        required: false
+        data: Buffer,
+        contentType: String
     },
     createdAt: {
         type: Date,
         default: Date.now()
     },
-    // boards: [{
-    //     type: Schema.Types.ObjectId,
-    //     ref: "Board"
-    // }],
 })
 
 UserSchema.virtual("boards", {

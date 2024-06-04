@@ -5,7 +5,7 @@ import axios from "axios";
 import BoardTile from "./BoardTile";
 import Loading from "./Loading";
 import noImg from "../assets/noImg.png";
-import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+// import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
 const OtherBoards = () => {
@@ -42,28 +42,28 @@ const OtherBoards = () => {
 			return publicBoards;
 		}
 	}
-	console.log(otherBoards);
 	if (isLoading) {
 		return (
-			<div>
-				<SkeletonTheme
+			<div className="h-full min-h-screen mx-auto w-5/6">
+				{/* <SkeletonTheme
 					baseColor="#121212"
 					highlightColor="#091f2a"
 					width="100%"
 					height="30rem"
 					borderRadius="2%"
-					opacity="0.1">
+					opacity="0.1"
+					z-index="0">
 					<p>
 						<Skeleton />
 					</p>
-				</SkeletonTheme>
+				</SkeletonTheme> */}
+				<Loading />
 			</div>
-			// <Loading />
 		);
 	}
 	return (
 		<div>
-			<div className="mt-10 grid 2xl:grid-cols-5 xl:grid-cols-4 lg:grid-cols-3 px-5 md:grid-cols-2 place-items-center">
+			<div className="mt-5 grid 2xl:grid-cols-5 xl:grid-cols-4 lg:grid-cols-3 px-5 md:grid-cols-2 place-items-center">
 				{" "}
 				{/* grid 2xl:grid-cols-5 xl:grid-cols-4 lg:grid-cols-3 px-10 md:grid-cols-2 */}
 				{Object.keys(otherBoards).map((i, j) => {

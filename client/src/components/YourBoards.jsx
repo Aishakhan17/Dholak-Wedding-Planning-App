@@ -50,8 +50,8 @@ const YourBoards = ({ boards, isLoading }) => {
 
 	return (
 		<div>
-			<h4 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-white">
-				Here are your boards
+			<h4 className="mt-10 text-center text-md font-bold leading-12 tracking-tight text-white">
+				Your boards
 			</h4>
 			<div>
 				<div className="flex flex-col">
@@ -73,7 +73,7 @@ const YourBoards = ({ boards, isLoading }) => {
 					<Popup
 						{...{ contentStyle }}
 						trigger={
-							<button className="mt-2 text-center text-xl font-bold leading-9 tracking-tight text-white hover:text-orange-400 self-center justify-center">
+							<button className="mt-2 text-center text-md font-bold leading-9 tracking-tight text-white hover:text-orange-400 self-center justify-center">
 								Create a new Board
 							</button>
 						}

@@ -9,17 +9,18 @@ function classNames(...classes) {
 	return classes.filter(Boolean).join(" ");
 }
 
-const List = ({ listTitle, id, boardId, listChange, errorMessageUpdate }) => {
+const List = ({ listTitle, id, boardId, listChange, errorMessageUpdate, participants }) => {
 	let [active, setActive] = useState(false);
 	let [cards, setCards] = useState([]);
 	let [errorMessage, setErrorMessage] = useState("");
 	const contentStyle = {
 		marginLeft: "auto",
 		marginRight: "auto",
+		// marginTop: "20rem",
 		width: "40%",
 		minWidth: "content",
-		height: "content",
-		minHeight: "40%",
+		height: "40rem",
+		minHeight: "content",
 		background: "#091f2A",
 	};
 
@@ -212,7 +213,13 @@ const List = ({ listTitle, id, boardId, listChange, errorMessageUpdate }) => {
 								}
 								modal
 								nested>
-								<Card cardTitle={cardTitle} />
+								<Card
+									cardTitle={cardTitle}
+									listTitle={listTitle}
+									listId={id}
+									boardId={boardId}
+									participants={participants}
+								/>
 							</Popup>
 						);
 					})}

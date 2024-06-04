@@ -1,7 +1,6 @@
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { Buffer } from "buffer";
-import Loading from "./Loading";
 
 const ImageCarousel = ({ images }) => {
 	const pictures = [
@@ -39,7 +38,7 @@ const ImageCarousel = ({ images }) => {
 					draggable={false}
 					showDots={true}
 					responsive={responsive}
-					// ssr={true} // means to render carousel on server-side.
+					arrows={true}
 					infinite={true}
 					centerMode={true}
 					autoPlay={true}
@@ -49,10 +48,6 @@ const ImageCarousel = ({ images }) => {
 					customTransition="all .5"
 					transitionDuration={500}
 					containerClass="carousel-container"
-					// sliderClass="slider-class"
-					// removeArrowOnDeviceType={["tablet", "mobile"]}
-
-					// deviceType={deviceType}
 					dotListClass="custom-dot-list-style"
 					itemClass="carousel-item">
 					{Object.keys(images).map((i, j) => {
@@ -93,7 +88,7 @@ const ImageCarousel = ({ images }) => {
 					removeArrowOnDeviceType={["tablet", "mobile"]}
 					dotListClass="custom-dot-list-style"
 					// deviceType={deviceType}
-					// sliderClass="slider-class"
+					sliderClass="slider-class"
 					itemClass="carousel-item">
 					{Object.keys(pictures).map((i, j) => {
 						return (

@@ -21,6 +21,10 @@ module.exports = {
         "sans": "Georgia",
     },
     extend: {
+        spacing: {
+        '2/3': '90%',
+        '1/3': "10%"
+      }
     },
     corePlugins: {
         aspectRatio: false,

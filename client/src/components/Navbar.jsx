@@ -4,9 +4,13 @@ import { Bars3Icon, BellIcon, MagnifyingGlassIcon, XMarkIcon } from "@heroicons/
 import logo from "../assets/logo.png";
 import noImg from "../assets/noImg.png";
 import { useUpdate } from "../utils/Context";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { initUser } from "../utils/Context";
 import axios from "axios";
+import Popup from "reactjs-popup";
+import BoardForm from "./BoardForm";
+import { Buffer } from "buffer";
 
 const navigation = {
 	categories: [
@@ -163,13 +167,48 @@ function classNames(...classes) {
 export default function Navbar() {
 	const [open, setOpen] = useState(false);
 	const { user, isAuthenticated, updateAuth, updateUser } = useUpdate();
+	const [image, setImage] = useState("");
 	const navigate = useNavigate();
-	console.log("user", user);
+	// console.log("navbar user", user);
+	const contentStyle = {
+		width: "33%",
+		marginLeft: "auto",
+		marginRight: "auto",
+		opacity: "97%",
+	};
+
 	let userId;
 	if (isAuthenticated) {
 		userId = user.data.id;
 	}
 
+	useEffect(() => {
+		let isCancelled = false;
+		if (!isCancelled) {
+			const profilePicture = getProfilePicture();
+			profilePicture.then((profilePicture) => console.log("profilePicture", profilePicture));
+			profilePicture.then((profilePicture) => {
+				profilePicture.data.data !== undefined
+					? setImage(Buffer.from(profilePicture.data.data, "binary").toString("base64"))
+					: setImage("");
+			});
+		}
+		return () => {
+			isCancelled = true;
+		};
+	}, []);
+
+	const getProfilePicture = async () => {
+		let picture = await axios.post(
+			`${process.env.REACT_APP_API_URL}/users/get-profile-picture`,
+			{
+				userId,
+			}
+		);
+		if (!picture.data.error) {
+			return picture;
+		}
+	};
 	const logout = async () => {
 		//add functionality to delete session data when logout
 		let endSession = await axios
@@ -205,8 +244,9 @@ export default function Navbar() {
 	let messages = {};
 
 	async function getMessages() {}
+	console.log("userImage", image);
 	return (
-		<div className="bg-gray-800 bg-opacity-20 w-full">
+		<div className="bg-background bg-opacity-20 z-20 sticky w-full">
 			{" "}
 			{/*absolute z-20*/}
 			{/* Mobile menu */}
@@ -267,7 +307,7 @@ export default function Navbar() {
 																classNames(
 																	selected
 																		? " text-orange"
-																		: "border-transparent text-gray-800",
+																		: "border-transparent text-foreground",
 																	"flex-1 whitespace-nowrap border-b px-1 py-4 text-base font-medium"
 																)
 															}>
@@ -295,7 +335,7 @@ export default function Navbar() {
 																	</div>
 																	<a
 																		href={item.href}
-																		className="mt-6 block font-medium text-gray-800 hover:text-gray-500">
+																		className="mt-6 block font-medium text-foreground hover:text-foreground">
 																		<span
 																			className="absolute inset-0 z-10"
 																			aria-hidden="true"
@@ -314,7 +354,7 @@ export default function Navbar() {
 															<div key={section.name}>
 																<p
 																	id={`${category.id}-${section.id}-heading-mobile`}
-																	className="font-medium text-gray-800 hover:text-orange">
+																	className="font-medium text-foreground hover:text-orange">
 																	{section.name}
 																</p>
 																<ul
@@ -340,14 +380,14 @@ export default function Navbar() {
 											</Tab.Panels>
 										</Tab.Group>
 
-										<div className="space-y-6 border-t border-gray-200 px-4 py-6">
+										<div className="space-y-6 border-t border-foreground px-4 py-6">
 											{navigation.pages.map((page) => (
 												<div
 													key={page.name}
 													className="flow-root">
 													<a
 														href={page.href}
-														className="-m-2 block p-2 font-medium text-gray-800">
+														className="-m-2 block p-2 font-medium text-foreground">
 														{page.name}
 													</a>
 												</div>
@@ -356,18 +396,18 @@ export default function Navbar() {
 									</div>
 								) : (
 									<div>
-										<div className="space-y-6 border-t border-gray-200 px-4 py-6">
+										<div className="space-y-6 border-t border-foreground px-4 py-6">
 											<div className="flow-root">
 												<a
 													href="/login"
-													className="-m-2 block p-2 font-medium text-gray-900">
+													className="-m-2 block p-2 font-medium text-foreground hover:text-cardTile">
 													Sign in
 												</a>
 											</div>
 											<div className="flow-root">
 												<a
 													href="/signup"
-													className="-m-2 block p-2 font-medium text-gray-900">
+													className="-m-2 block p-2 font-medium text-foreground hover:text-cardTile">
 													Create account
 												</a>
 											</div>
@@ -379,6 +419,7 @@ export default function Navbar() {
 					</div>
 				</Dialog>
 			</Transition.Root>
+			{/* //desktop menu */}
 			<header className="relative bg-transparent">
 				<nav
 					aria-label="Top"
@@ -387,7 +428,7 @@ export default function Navbar() {
 						<div className="flex h-16 items-center">
 							<button
 								type="button"
-								className="relative rounded-md bg-white p-2 text-gray-400 lg:hidden"
+								className="relative rounded-md bg-white p-2 text-foreground lg:hidden"
 								onClick={() => setOpen(true)}>
 								<span className="absolute -inset-0.5" />
 								<span className="sr-only">Open menu</span>
@@ -422,8 +463,8 @@ export default function Navbar() {
 																<Popover.Button
 																	className={classNames(
 																		open
-																			? "border-orange text-orange"
-																			: " text-white hover:text-gray-300",
+																			? "border-orange text-cardTile"
+																			: " text-white hover:text-opacity-50",
 																		"relative z-10 -mb-px flex items-center pt-px text-sm font-medium transition-colors duration-200 ease-out"
 																	)}>
 																	{category.name}
@@ -578,30 +619,50 @@ export default function Navbar() {
 														<Menu.Items className="relative inset-y-10 -inset-x-10 mt-10 w-48 rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
 															<Menu.Item>
 																{({ active }) => (
-																	<a
-																		href="#"
-																		className={classNames(
-																			active
-																				? "bg-gray-100"
-																				: "",
-																			"block px-4 py-2 text-sm text-gray-700"
-																		)}>
-																		Board
-																	</a>
+																	<div>
+																		<Popup
+																			{...{ contentStyle }}
+																			trigger={
+																				<button
+																					href="#"
+																					className={classNames(
+																						active
+																							? "bg-gray-100"
+																							: "",
+																						"block px-4 py-2 text-sm text-gray-700"
+																					)}>
+																					Board
+																				</button>
+																			}
+																			modal
+																			nested>
+																			<BoardForm />
+																		</Popup>
+																	</div>
 																)}
 															</Menu.Item>
 															<Menu.Item>
 																{({ active }) => (
-																	<a
-																		href="#"
-																		className={classNames(
-																			active
-																				? "bg-gray-100"
-																				: "",
-																			"block px-4 py-2 text-sm text-gray-700"
-																		)}>
-																		Group
-																	</a>
+																	<div>
+																		<Popup
+																			{...{ contentStyle }}
+																			trigger={
+																				<button
+																					href="#"
+																					className={classNames(
+																						active
+																							? "bg-gray-100"
+																							: "",
+																						"block px-4 py-2 text-sm text-gray-700"
+																					)}>
+																					Group
+																				</button>
+																			}
+																			modal
+																			nested>
+																			<BoardForm />
+																		</Popup>
+																	</div>
 																)}
 															</Menu.Item>
 														</Menu.Items>
@@ -714,17 +775,18 @@ export default function Navbar() {
 												<Menu.Button className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
 													<span className="absolute -inset-1.5" />
 													<span className="sr-only">Open user menu</span>
-													{user.data.image ? (
+													{image ? (
 														<img
-															className="h-8 w-8 rounded-full"
-															referrerPolicy="no-referrer"
-															src={`${user.data.image}`}
-															alt=""
+															className="h-8 w-8 object-cover rounded-full"
+															src={
+																"data:image/jpg/jpeg/png;base64," +
+																image
+															}
 														/>
 													) : (
 														<img
 															className="h-8 w-8 rounded-full"
-															src={noImg}
+															src={`https://ui-avatars.com/api/?name=${user.data.firstName}+${user.data.lastName}`}
 															alt=""
 														/>
 													)}
@@ -785,7 +847,7 @@ export default function Navbar() {
 									<div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
 										<a
 											href="/login"
-											className="text-sm font-medium text-white hover:text-orange">
+											className="text-sm font-medium text-white hover:text-cardTile">
 											Sign in
 										</a>
 										<span
@@ -794,7 +856,7 @@ export default function Navbar() {
 										/>
 										<a
 											href="/signup"
-											className="text-sm font-medium text-white hover:text-orange">
+											className="text-sm font-medium text-white hover:text-cardTile">
 											Create account
 										</a>
 									</div>

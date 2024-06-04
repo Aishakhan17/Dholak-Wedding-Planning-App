@@ -19,7 +19,13 @@ html {
 *::after {
 	box-sizing: inherit;
 }
-
+.react-multiple-carousel__arrow {
+	position: relative;
+	z-index: 500;
+}
+.react-multi-carousel-list {
+	z-index: 10;
+}
 .modal {
 	font-size: 12px;
 }
@@ -53,22 +59,3 @@ html {
 	border-radius: 18px;
 	border: 1px solid #cfcece;
 }
-
-/* .carousel-container {
-	height: 32rem;
-	display: flex;
-	position: relative;
-} */
-
-/* .carousel-item {
-	margin-top: auto;
-	margin-bottom: auto;
-	background-color: pink;
-	padding: 2px;
-	height: 100%;
-} */
-/* 
-.slider-class {
-	background-color: inherit;
-	height: 90%;
-} */

@@ -7,11 +7,11 @@ function classNames(...classes) {
 	return classes.filter(Boolean).join(" ");
 }
 
-const ListAndCards = ({ boardId }) => {
+const ListAndCards = ({ boardId, participants }) => {
 	const [lists, setLists] = useState([]);
-	let [active, setActive] = useState(false);
-	let [errorMessage, setErrorMessage] = useState("");
-	// const contentStyle = {marginLeft: "auto", marginRight: "auto", width: "40%", minWidth: "content", height: "content", minHeight: "20%"}
+	const [active, setActive] = useState(false);
+	const [errorMessage, setErrorMessage] = useState("");
+	const [isLoading, setIsLoading] = useState(false);
 
 	async function createList(event) {
 		event.preventDefault();
@@ -46,6 +46,7 @@ const ListAndCards = ({ boardId }) => {
 	}, []);
 
 	async function getLists() {
+		setIsLoading((current) => !current);
 		let boardLists = await axios.post(
 			`${process.env.REACT_APP_API_URL}/lists/get-lists`,
 			{ boardId },
@@ -57,6 +58,7 @@ const ListAndCards = ({ boardId }) => {
 			}
 		);
 		if (boardLists.status === 200) {
+			setIsLoading((current) => !current);
 			return boardLists;
 		}
 	}
@@ -72,7 +74,9 @@ const ListAndCards = ({ boardId }) => {
 	async function handleBlur() {
 		setActive((current) => !current);
 	}
-
+	if (isLoading) {
+		return <Loading />;
+	}
 	return (
 		<div className="flex flex-col">
 			<div className="relative self-center justify-center mt-5 h-fit w-64 min-w-48 bg-card bg-opacity-80 rounded-md">
@@ -142,6 +146,7 @@ const ListAndCards = ({ boardId }) => {
 									boardId={boardId}
 									listChange={listChange}
 									errorMessageUpdate={errorMessageUpdate}
+									participants={participants}
 								/>
 							);
 						})}

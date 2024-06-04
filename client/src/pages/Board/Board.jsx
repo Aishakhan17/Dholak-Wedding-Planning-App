@@ -6,7 +6,6 @@ import Navbar from "../../components/Navbar";
 import { useUpdate } from "../../utils/Context";
 import axios from "axios";
 import { Buffer } from "buffer";
-import noImg from "../../assets/noImg.png";
 import ImageCarousel from "../../components/ImageCarousel";
 import ListAndCards from "../../components/ListAndCards";
 
@@ -30,6 +29,9 @@ const Board = () => {
 
 	function updateImages(updatedImages) {
 		setImages(updatedImages);
+	}
+	function updateDescription(updatedDescription) {
+		setDescription(updatedDescription);
 	}
 
 	useEffect(() => {
@@ -138,14 +140,13 @@ const Board = () => {
 				},
 			}
 		);
-		console.log("uploadStatus", uploadStatus.data);
+		// console.log("uploadStatus", uploadStatus.data);
 		if (uploadStatus.data.error) {
 			setErrorMessage(uploadStatus.data.error);
 		} else {
 			updateImages(uploadStatus.data);
 		}
 	}
-	console.log("participants", participants);
 	if (isLoading) {
 		return <Loading />;
 	} else {
@@ -162,6 +163,7 @@ const Board = () => {
 								cover={cover}
 								description={description}
 								participantsChange={participantsChange}
+								updateDescription={updateDescription}
 								boards={boards}
 								owner={owner}
 							/>
@@ -219,7 +221,10 @@ const Board = () => {
 									<p className="mt-10 text-center text-xl font-bold leading-9 tracking-tight text-white self-center justify-center">
 										Huddle Corner
 									</p>
-									<ListAndCards boardId={id} />
+									<ListAndCards
+										boardId={id}
+										participants={participants}
+									/>
 								</div>
 								<div className="">
 									<p className="mt-10 bg-card bg-opacity-90 text-center text-sm font-bold leading-9 tracking-tight text-white self-center justify-center rounded-md">
@@ -227,25 +232,35 @@ const Board = () => {
 									</p>
 									<div className="mt-10 flex space-x-2 overflow-hidden">
 										{Object.keys(participants).map((i, j) => {
+											let participantImage;
+											if (participants[i].image) {
+												participantImage = Buffer.from(
+													participants[i].image.data,
+													"binary"
+												).toString("base64");
+											}
 											return (
 												<div
 													key={j}
 													className="mt-1">
 													<img />
 													<li className="flow-root ml-2 text-sm leading-9 tracking-tight text-white">
-														{participants[i].image ? (
+														{participantImage ? (
 															<a
 																href={`/profile/${participants[i]._id}`}>
 																<img
-																	className="inline-block h-10 w-10 rounded-full ring-1 ring-white"
-																	src={`${user.image}`}
+																	className="inline-block object-cover h-10 w-10 rounded-full ring-1 ring-white"
+																	src={
+																		"data:image/jpg/jpeg/png;base64," +
+																		participantImage
+																	}
 																/>
 															</a>
 														) : (
 															<a
 																href={`/profile/${participants[i]._id}`}>
 																<img
-																	className="inline-block h-11 w-11 rounded-full ring-1 ring-white"
+																	className="inline-block h-11 w-11 object-cover rounded-full ring-1 ring-white"
 																	src={`https://ui-avatars.com/api/?name=${participants[i].firstName}+${participants[i].lastName}`}
 																/>
 															</a>

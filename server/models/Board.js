@@ -20,18 +20,14 @@ const BoardSchema = new mongoose.Schema({
         data: Buffer,
         contentType: String,
     },
-    // images: [{
-    //     data: Buffer,
-    //     contentType: String
-    // }],
     participants: [{
         type: Schema.Types.ObjectId,
         ref: "User"
     }],
-    notifications : [{
-        type: Schema.Types.ObjectId,
-        ref: "Notifications"
-    }],
+    // notifications : [{
+    //     type: Schema.Types.ObjectId,
+    //     ref: "Notifications"
+    // }],
     createdAt: {
         type: Date,
         default: Date.now()
